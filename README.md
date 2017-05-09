@@ -1,3 +1,1 @@
-  .idea
-  node_modules
-  .DS_Store
+## 记录我在这里的点点滴滴
