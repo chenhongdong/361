@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    //window.performance
+    /*
+    perfomance {
+        timing: {
+            //加载时间主要检测loadEventEnd和fetchStart的时间差
+            fetchStart: '1494314870907',
+            loadEventEnd: '1494314871401'
+        }
+    }
+
+     */
+    let old = new Date(1494314870907)
+    let now = new Date(1494314879401);
+    let time = Math.floor((now.getTime() - old.getTime()) / 1000);
+
+    let seconds = Math.round(time%60);
+
+    console.log(`加载时间为${seconds}秒`);
+</script>

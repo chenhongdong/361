@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+         function countDown() {
+           let oBox = document.querySelector('#result');     
+           //获取当前时间 
+           let old = new Date;
+           //设置未来时间
+           let now = new Date('2017-05-10 19:30:00');
+           //时间差，/1000转为秒
+           let date = Math.floor((now.getTime() - old.getTime()) / 1000);
+
+           //相差天数   
+           let days =Math.floor(date/(24*3600));        //技巧：1天24小时，1小时3600秒
+
+           //相差小时
+           let leave1 = date%(24*3600);
+           let hours = Math.floor(leave1/(3600));    //技巧： 1小时60分，3600秒
+
+           //相差分钟
+           let leave2 = date%(3600);
+           let minutes = Math.floor(leave2/60);             //技巧： 1分钟60秒
+
+           //相差秒数
+           let seconds = Math.round(date%60);
+
+           oBox.innerHTML = `还剩${days}天${addZero(hours)}时${addZero(minutes)}分${addZero(seconds)}秒`;
+        }
+
+        //补零
+        function addZero(n) {
+            return n < 10 ? '0' + n : '' + n;
+        }
+
+        //调用函数
+        countDown();
+        setInterval(countDown, 1000);
+    </script>
+</body>
+</html>
