@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+	function verCompare(v1, v2) {
+		v1 = v1.split('.');
+		v2 = v2.split('.');
+
+		for (let i = 0; i < v1.length; i++) {
+			if (!v2[i] || parseInt(v1[i]) > parseInt(v2[i])) {
+				return false;
+			} else if(parseInt(v1[i]) < parseInt(v2[i])) {
+				return true;
+			}
+		}
+
+		return true;
+	}
+
+	let v1 = '8.1.0.404';
+	let v2 = '8.1.0.407';
+
+	console.log(verCompare(v1, v2));
+</script>

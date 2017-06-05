@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+	var search = '?q=%E6%96%87%E5%9C%A8%E5%AF%85&pq=&src=srp&log_id=1495443182864&srcg=cooper&cooper=infoflow&news_sdk_query=uid%253Dbg37qhk5uvjba2y16vwfv6qj2fiwbxak%2526sign%253Dwap%2526market%253D406502%2526stype%253Dportal%2526v%253D1%2526sv%253D8%2526templetctl%253D7%2526360newsdetail%253D1%2526articlety%253Dzmt%2526hsitetype%253D1%2526hscmt%253D1';
+
+	function isCN(str) {
+		return /[\u4e00-\u9fa5]/.test(str);
+	}; 
+
+	function getJsonUrl(url) {
+		let uParms = url.replace('?', ''),
+			arrUriParms = uParms.split('&'),
+			jsonUriParms = {};
+			console.log(arrUriParms);
+
+		for (let i = 0, l = arrUriParms.length; i < l; i++) {
+			let uri = arrUriParms[i].split('=');
+			if (isCN(uri[1])) {
+				jsonUriParms[uri[0]] = `${uri[0]}=${encodeURIComponent(uri[1])}`;
+			} else {
+				jsonUriParms[uri[0]] = arrUriParms[i];
+			}
+		}
+
+		return jsonUriParms;
+	};
+
+	console.log(getJsonUrl(search));
+	console.log(getJsonUrl(search).cooper)
+</script>
