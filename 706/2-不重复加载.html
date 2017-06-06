@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body style="height: 5000px;">
+	
+</body>
+</html>
+<script>
+	function contain (arr, obj) {
+		let i = arr.length;
+		while (i--) {
+			if (arr[i] === obj) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	let send = (function () {
+		let res = [];
+		return function (index) {
+			if (!contain(res, index)) {
+				res.push(index);
+				// todo
+				console.log('todo');
+			}
+			
+		}
+	})();
+
+	
+
+	window.onscroll = function() {
+		let arr = [1,2,3,4,5,6];
+
+		for (let i = 0; i < arr.length; i++) {
+			send(i);
+		}
+	}
+	
+</script>
