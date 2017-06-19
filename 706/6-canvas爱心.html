@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		* {margin: 0; padding: 0;}
+		body {
+			background: #30305f;
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<canvas></canvas>
+
+	<script>
+		var canvas = document.querySelector('canvas');	// 获取canvas元素
+		var ctx = canvas.getContext('2d');	// 创建canvas画布		
+		var wW = window.innerWidth;		//获取浏览器宽度  screen.width
+		var wH = window.innerHeight;	 	
+		var num = 100;   //绘制100个红心  100个红心对象
+		var hearts = [];	//心的集合
+		var heartImg = new Image();		//创建一个新的image对象
+		heartImg.src = 'images/heart.svg';
+		heartImg.onload = init;		//当图片加载完成后渲染
+
+		init();		//初始化函数
+
+
+
+		function init() {
+			// 初始化画布的大小
+			canvas.width = wW;
+			canvas.height = wH;
+			for (var i = 0; i < num; i++) {
+				hearts[i] = new Heart();
+			}
+
+			requestAnimationFrame(render);
+
+			window.addEventListener('resize', function() {
+				wW = window.innerWidth;
+				wH = window.innerHeight;
+			});
+		}
+
+		// 构造函数
+		function Heart() {
+			this.x = Math.random() * wW;
+			this.y = Math.random() * wH;
+
+			this.opacity = Math.random() * .5 + .5;
+
+			this.vel = {	//位移参数  移动量和方向
+				x: (Math.random() - .5) * 4,	// -值往左走，+值往右走
+				y: (Math.random() - .5) * 4		// 速度系数
+			};
+
+			this.initW = 470;
+			this.initH = 410;
+			// 最终大小缩放比例  最小为0.02
+			this.targetScale = Math.random() * .15 + .02;
+			// 初始化的时候大小缩放比例
+			this.scale = this.targetScale * Math.random();
+		}
+
+		Heart.prototype.update = function() {	//更新方法
+			this.x += this.vel.x;	// 更新心的x方向位置
+			this.y += this.vel.y;
+
+			if (this.x - this.width > wW || this.x + this.width < 0) {
+				this.scale = 0;		// 重置缩放值
+				this.x = Math.random() * wW;	//重新初始化x方向位置
+			}
+			if (this.y - this.height > wH || this.y + this.height < 0) {
+				this.scale = 0;
+				this.y = Math.random() * wH;
+			}
+			// 当前大小 = 目标大小 - 当前大小
+			this.scale += (this.targetScale - this.scale) * .01;
+
+			this.width = this.scale * this.initW;
+			this.height = this.scale * this.initH;
+		};
+
+		Heart.prototype.draw = function() {		// 绘制方法
+			ctx.globalAlpha = this.opacity;		// 红心透明度
+			ctx.drawImage(heartImg, this.x, this.y, this.width, this.height);
+		};
+
+
+
+		function render() {		// 渲染函数
+			ctx.clearRect(0, 0, wW, wH);	// 清空画布
+
+			for (var i = 0; i < num; i++) {
+				hearts[i].draw();		// 对象的绘制方法
+				hearts[i].update();		// 每隔13毫秒重新绘制爱心坐标
+			}
+
+			requestAnimationFrame(render);	// 每隔13毫秒  调用一次render
+		} 
+	</script>
+</body>
+</html>
