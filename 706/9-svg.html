@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<svg width="120" height="120" viewBox="0 0 120 120">	
+		<path d="M 10 110 A 120 120 -45 0 1 110 10 A 120 120 -45 0 1 10 110" id="motion" style="fill:none; stroke: lightgrey; stroke-width: 2;"></path>
+		<circle cx="10" cy="110" r="3" fill="lightgrey"></circle>
+		<circle cx="110" cy="10" r="3" fill="lightgrey"></circle>
+
+		<circle cx="" cy="" r="5" fill="red">
+			
+			<animateMotion dur="6s" repeatCount="indefinite">
+				<mpath xlink:href="#motion">
+			</animateMotion>
+		</circle>
+
+		
+	</svg>
+</body>
+</html>
