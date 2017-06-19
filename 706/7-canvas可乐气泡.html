@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		* {margin: 0; padding: 0;}
+
+	</style>
+</head>
+<body>
+	<canvas id="coca"></canvas>
+
+
+	<script>
+		// 获取canvas对象
+		var canvas = document.getElementById('coca');
+		canvas.width = 750;
+		canvas.height = 1054;
+
+		// 获取canvas 2D上下文对象
+		var ctx = canvas.getContext('2d');
+
+		var img = new Image();
+		img.src = 'images/bubble.png';
+		img.onload = init3;
+
+		function init() {
+			console.log(this.width);
+			// 图像旋转
+			ctx.save();
+			ctx.translate(512+this.width/2, 220+this.height/2);
+			ctx.rotate( -(35 * Math.PI/180));
+			ctx.drawImage(img, -this.width/2, -this.height/2, this.width, this.height);
+			ctx.restore();
+		}
+
+
+		function init2() {
+			//图像翻转
+			ctx.save();
+			ctx.scale(-1, 1);
+			ctx.drawImage(img, -this.width-512, 220, this.width, this.height);
+			ctx.restore();
+		}
+
+
+		function init3() {
+			//图像镜像对称
+			ctx.save();
+			ctx.scale(-1, 1);
+			ctx.translate(-this.width/2-512, 220+this.height/2);
+			ctx.rotate(-35 * Math.PI/180);
+			ctx.drawImage(img, -this.width/2, -this.height/2, this.width, this.height);
+			ctx.restore();
+		}
+	</script>
+</body>
+</html>

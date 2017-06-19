@@ -13,8 +13,12 @@
 </head>
 <body>
 	<canvas></canvas>
+	<div super="junior" id="div1"></div>	
 
 	<script>
+		var oDiv = document.getElementById('div1');
+		alert(oDiv.getAttribute('super'));
+
 		var canvas = document.querySelector('canvas');	// 获取canvas元素
 		var ctx = canvas.getContext('2d');	// 创建canvas画布		
 		var wW = window.innerWidth;		//获取浏览器宽度  screen.width
