@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>箭头</title>
+	<style>
+		#box svg line {
+			stroke: #000;
+			stroke-width: 1px;
+			-stroke-dasharray: 5 4 3;	/*描绘虚线的，按照绘制，不绘制的顺序  如: 5px绘制  4px不绘制 3px绘制*/
+		}
+
+		#box svg .arrow-line {
+			stroke-dasharray: 60;
+			stroke-dashoffset: 60;
+			transition: stroke-dashoffset ease-in .5s .2s;
+		}
+
+		#box svg .arrow-head {
+			stroke-dasharray: 9;
+			stroke-dashoffset: -9;
+			transition: stroke-dashoffset ease-in .2s;
+		}
+
+		#box svg:hover line {
+			stroke-dashoffset: 0;
+		}
+
+		#box svg:hover .arrow-line {
+			transition: stroke-dashoffset ease-in .5s;
+		}
+
+		#box svg:hover .arrow-head {
+			transition: stroke-dashoffset ease-in .2s .5s;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<svg width="90" height="13" viewBox="0 0 89.4 12.4">
+			<line class="arrow-line" x1="0" y1="6.2" x2="59.6" y2="6.2"></line>
+			<line class="arrow-head" x1="54.7" y1="0.7" x2="60.5" y2="6.5"></line>
+			<line class="arrow-head" x1="54.7" y1="11.7" x2="60.5" y2="5.8"></line>
+		</svg>
+	</div>
+
+	<div id="demo">
+		<!-- A 30 X轴坐标  50  Y轴坐标  0 角度  0 小弧度 1 顺时针  162.55 162.45  终点坐标 -->
+		<svg width="320" height="320" viewBox="0 0 320 320">
+			<path d="M 10 315
+					L 110 215
+					A 30 50 0 0 1 162.55 162.45
+					L 172.55 152.45
+					A 30 50 -45 0 1 215.1 109.9
+					L 315 10" stroke="black" fill="green" stroke-width="2" fill-opacity="0.5"></path>
+		</svg>
+
+		<!-- 三次贝塞尔曲线 -->
+		<svg width="300" height="100" viewBox="0 0 60 30">
+			<path d="M 10 10 C 20 20, 40 20, 50 10" stroke="#0c9" fill="transparent"></path>
+		</svg>
+
+		<!-- 简化版三次贝塞尔曲线 -->
+		<svg width="190" height="160">
+			<path d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="#00a1f5" fill="transparent"></path>
+		</svg>
+
+		<!-- 二次贝塞尔曲线 -->
+		<svg width="190" height="160">
+			<path d="M10 80 Q 95 10, 180 80" stroke="red" fill="transparent"></path>
+		</svg>
+	</div>
+</body>
+</html>

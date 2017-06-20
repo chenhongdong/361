@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>播放键</title>
+    <style>
+        .play-icon-vector {
+            overflow: visible;
+        }
+        .play-icon-circle,
+        .play-icon-polygon {
+            mix-blend-mode: exclusion;
+            transition: opacity .3s cubic-bezier(.08, .03, .22, .87);
+        }
+        .play-icon-blend {
+            transform-origin: center;
+            transform: scale(0);
+            transition: transform .25s cubic-bezier(.08, .03, .22, .87);
+        }
+        .play-icon-vector:hover .play-icon-blend {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <svg class="play-icon-vector" width="50" height="50" viewBox="0 0 50 50">
+        <defs>
+            <circle id="play-circle" cx="25" cy="25" r="25"></circle>
+        </defs>
+
+        <use class="play-icon-blend" xlink:href="#play-circle" style="fill: #000;stroke:#000;stroke-width:4px;"></use>
+        <use class="play-icon-circle" xlink:href="#play-circle" style="fill: #fff; stroke: #fff; stroke-width: 2px;"></use>
+        <path class="play-icon-polygon" d="M31.49,24.31a0.73,0.73,0,0,1,0,1.38l-8.27,5.64A0.74,0.74,0,0,1,22,30.64V19.36a0.74,0.74,0,0,1,1.22-.69Z" fill="#fff"></path>
+    </svg>
+</body>
+</html>
