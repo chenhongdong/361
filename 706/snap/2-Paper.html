@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <svg id="svg"></svg>
+</body>
+</html>
+<script src="../../node_modules/snapsvg/dist/snap.svg.js"></script>
+<script>
+    var svg = Snap('#svg');
+
+    // 画一个圆
+    svg.paper.circle({
+        cx: 100,
+        cy: 100,
+        r: 50,
+        fill: '#0c9'
+    });
+
+    svg.paper.image('../images/bubble.png', 0, 400, 300, 300);
+</script>

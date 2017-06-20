@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<svg id="svg">
+    <circle cx="30" cy="30" r="15" stroke="green" fill="none"></circle>
+</svg>
+
+<svg id="svg2">
+    <circle cx="60" cy="60" r="20" fill="#0cc"></circle>
+    <rect width="50" height="40" fill="#000" stroke="blue" stroke-width="4px"></rect>
+</svg>
+
+<svg id="svg3">
+</svg>
+</body>
+</html>
+<script src="../../node_modules/snapsvg/dist/snap.svg.js"></script>
+<script>
+    // 动画1
+    let svg = Snap('#svg');
+    svg.select('circle').animate({r: 30}, 1000, mina.easeout(), function() {
+        console.log('动画结束');
+    });
+
+
+    // 动画2
+    let svg2 = Snap('#svg2');
+    let circle2 = svg2.select('circle');
+    let rect2 = svg2.select('rect');
+
+    Snap.animate(0, 60, function(val) {
+       circle2.attr({r: val});
+       rect2.attr({r: val});
+    }, 1000, mina.easeout(), function() {
+        console.log('结束');
+    });
+
+    // 动画3
+    let svg3 = Snap('#svg3');
+    let circle3 = svg3.paper.circle({cx:100, cy: 100, r: 50, fill: '#f00'});
+//    circle3.animate({fill: '#0cc'}, 1000, mina.easeinout(), function() {
+//        console.log('结束3');
+//    });
+    console.log(svg3.select('circle'));
+    svg3.select('circle').animate({fill: '#00f'}, 1000, mina.easeout(), function() {
+        console.log('animation end');
+    });
+
+</script>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <svg id="svg">
+        <circle cx="20" cy="20" r="20" fill="pink"></circle>
+    </svg>
+</body>
+</html>
+<script src="../../node_modules/snapsvg/dist/snap.svg.js"></script>
+<script>
+    var svg = Snap('#svg');
+    var circle = svg.select('circle');
+    console.log(circle);
+
+    circle.click(function() {
+       alert(1)
+    });
+</script>

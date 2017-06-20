@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<svg id="svg" width="300" height="300"></svg>
+<svg id="svg2" width="300" height="300"></svg>
+
+</body>
+</html>
+<script src="../../node_modules/snapsvg/dist/snap.svg.js"></script>
+<script>
+
+    // 开始态
+    var svg = Snap('#svg')
+    var path = svg.paper.path({d: 'M0.500,65.500 C18.680,33.758 45.141,-6.797 72.500,2.500 C99.859,11.797 72.148,59.027 79.500,98.500 C86.852,137.973 117.668,128.914 138.500,59.500 C159.332,-9.914 246.500,59.500 246.500,59.500 C273.181,117.750 137.350,184.417 225.500,173.500 C351.137,157.940 155.369,160.617 162.500,86.500 C165.180,58.645 237.169,-2.418 283.500,2.500 C357.654,10.371 363.758,80.355 364.500,109.500',stroke:'#f00', fill: 'rgba(0,0,0,0)'});
+    setTimeout(function() {
+        // 终止态：曲线变直
+        // path.animate({d: 'M1,100 L350,100'}, 1000, mina.easeout(), function() {
+        //     console.log('animation end');
+        // });
+        // 终止态：心形
+        path.animate({d: 'M114.500,58.500 C106.230,58.751 23.907,-37.262 5.500,21.500 C-26.759,124.483 111.761,221.360 119.500,219.500 C154.464,211.096 201.234,149.580 220.500,104.500 C250.260,34.864 220.892,7.159 194.500,1.500 C160.455,-5.800 122.344,58.262 114.500,58.500 Z'}, 1000, mina.easeout(), function() {
+            console.log('animation end');
+        });
+    }, 1000);
+
+
+
+    // 描边动画
+    var svg2 = Snap('#svg2');
+    var path2 = svg2.paper.path({d: 'M0.500,65.500 C18.680,33.758 45.141,-6.797 72.500,2.500 C99.859,11.797 72.148,59.027 79.500,98.500 C86.852,137.973 117.668,128.914 138.500,59.500 C159.332,-9.914 246.500,59.500 246.500,59.500 C273.181,117.750 137.350,184.417 225.500,173.500 C351.137,157.940 155.369,160.617 162.500,86.500 C165.180,58.645 237.169,-2.418 283.500,2.500 C357.654,10.371 363.758,80.355 364.500,109.500', stroke:'#f00', fill: 'rgba(0,0,0,0)'});
+    var length = Snap.path.getTotalLength(path2);
+    path2.attr({
+        'stroke-dashoffset': length,
+        'stroke-dasharray': length  // 用Snap的API计算复杂的path长度
+    });
+    Snap.animate(length, 0, function(val) {
+        path2.attr({
+            'stroke-dashoffset': val
+        });
+    }, 1000, mina.easeout(), function() {
+        console.log('animation end');
+    });
+</script>
