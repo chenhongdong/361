@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<p>今日限号</p>
+	<span class="number"></span>
+</body>
+</html>
+<script>
+	var d = new Date();
+	var day = d.getDay();
+	var num1 = 0;
+	var num2 = 0;
+	var str = '';
+	console.log(day);
+
+	switch(day) {
+		case 1:
+			num1 = 2;
+			num2 = 7;
+			break;
+		case 2:
+			num1 = 3;
+			num2 = 8;
+			break;
+		case 3:
+			num1 = 4;
+			num2 = 9;
+			break;
+		case 4:
+			num1 = 5;
+			num2 = 0;
+			break;
+		default:
+			num1 = 1;
+			num2 = 2;
+	}
+
+	str = '车牌尾号为 ' + num1 + '和' + num2 + '的机动车';
+
+	document.querySelector('.number').innerHTML = str;
+</script>
