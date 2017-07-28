@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ol>
+		<li style="width:250px;"><a href="#">良心大剧《军师联盟》中萌点多多,这样的古代历史大剧...</a></li>
+		<li style="width:250px;"><a href="#">埃米纳姆20件</a></li>
+		<li style="width:250px;"><a href="#">关于心智、认知,多的是你不知道的事</a></li>
+		<li style="width:250px;"><a href="#">笑傲江湖外你不知道的事 番外一 林平之内心独白</a></li>
+		<li style="width:250px;"><a href="#">王力宏深情献唱《你不知道的事》,刘亦菲这位冰山美人终于融化了</a></li>
+		<li style="width:250px;"><a href="#">蛋白粉除了增肌还有你不知道的事</a></li>
+	</ol>
+</body>
+</html>
+<script src="jquery-2.0.3.js"></script>
+<script>
+	$('ol li').each(function(i) {
+		let h = $(this).height();
+		console.log(h);
+		if (h > 24) {
+			$(this).addClass('two')
+		} else {
+			$(this).addClass('one');
+		}
+	})
+</script>

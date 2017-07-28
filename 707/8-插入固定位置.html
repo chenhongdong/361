@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<title></title>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#content{
+		width: 400px;
+		margin: 0 auto;
+	}
+	.item{
+		width: 100%;
+		height: 100px;
+		text-align: center;
+		border: 2px solid #ccc;
+		box-sizing: border-box;
+		float: left;
+	}
+	.item-ad{
+		border-color: red;
+	}
+	#btn{
+		position: fixed;
+		top: 50%;
+		right: 20%;
+		display: block;
+		padding: 10px;
+	}
+</style>
+</head>
+<body>
+	<button id="btn">加载</button>
+	<div id="content">
+		<div class="box1"></div>
+		<div class="box2"></div>
+	</div>
+
+
+	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+	<script>
+	var pos = 1;
+	var arrAd = [];
+
+
+	function reqContent(){
+        var str = '';
+        var start = (pos-1)*10+1;
+        var end = pos*10;
+        var arr = [];
+
+		return new Promise((resolve, reject) => {
+            $.ajax({
+                url: 'http://api.look.360.cn/mlist?sign=360_4980232b&c=youlike&v=1&f=jsonp&net=5&ufrom=1&sv=6&n=10&u=mid',
+                dataType: 'jsonp',
+                jsonp: 'callback',
+                success: function(_data) {
+                    var data = _data.data.res;
+
+                    for(var i=start; i<=end; i++){
+                        if(i%7 == 4){
+                            str += '<div id="item-ad-'+i+'" class="item item-ad"></div>';
+                            arr.push(i);
+                        } else {
+                            str += '<div class="item"><p>'+data[(i-1)%10].t+'</p></div>';
+						}
+                    }
+
+
+                    $('#content .box').append(str);
+
+					resolve(arr);
+                }
+            });
+            pos++;
+		});
+
+
+	}
+	function reqAd(arr){
+		return new Promise((resolve, reject) => {
+            if(!arrAd.length) {
+                $.ajax({
+                    url: 'ad.json',
+                    success: function(data) {
+                        arrAd = arrAd.concat(data.ads);
+                        resolve(arr);
+                    }
+                });
+
+
+            } else {
+                resolve(arr);
+			}
+		});
+	}
+	function loadAd(i){
+        console.log(arrAd);
+		$("#item-ad-"+i).html('<p>'+(i)+'</p><p>广告   '+arrAd[0].title+'</p>');
+		arrAd.shift(0);
+    }
+
+	// init
+	reqContent().then(function(arr) {
+        reqAd(arr, arrAd).then((arr) => {
+            $.each(arr,function(index,item){
+                loadAd(item);
+            });
+		});
+	});
+
+
+
+	$("#btn").on("click",function(){
+        reqContent().then(function(arr){
+            reqAd(arr).then(function(arr) {
+                $.each(arr,function(index,item){
+                    loadAd(item);
+                });
+            });
+        });
+	});
+
+	/*$(window).on('scroll', function() {
+		var iTop = $(document).scrollTop();
+		console.log(iTop);
+		if (iTop > 300) {
+            reqContent().then(function(arr){
+                reqAd(arr).then(function(a) {
+                    alert(3);
+                    $.each(a,function(index,item){
+                        loadAd(item);
+                    });
+                });
+            });
+		}
+	});*/
+	</script>
+</body>
+</html>

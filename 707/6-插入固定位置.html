@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<title></title>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#content{
+		width: 400px;
+		margin: 0 auto;
+	}
+	.item{
+		width: 100px;
+		height: 100px;
+		text-align: center;
+		border: 2px solid #ccc;
+		box-sizing: border-box;
+		float: left;
+	}
+	.item-ad{
+		border-color: red;
+	}
+	#btn{
+		position: fixed;
+		top: 50%;
+		right: 20%;
+		display: block;
+		width: 100px;
+		height: 100px;
+	}
+</style>
+</head>
+<body>
+	<button id="btn">加载</button>
+	<div id="content"></div>
+
+
+	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+	<script>
+	var reqPage = 1;
+	var arrAd = [];
+	function reqContent(){
+		var str = '';
+		var start = (pos-1)*10+1;
+		var end = pos*10;
+		var arr = [];
+
+		for(var i=start; i<=end; i++){
+			if(i%7 == 4){
+				str += '<div id="item-ad-'+i+'" class="item item-ad"><p>'+(i)+'</p><p>广告</p></div>';
+				arr.push(i);
+			}else{
+				str += '<div class="item"><p>'+(i)+'</p></div>';
+			}
+		}
+		$("#content").append(str);
+		console.log(arr);
+
+		$.each(arr,function(index,item){
+			loadAd(item);
+		});
+
+		reqPage++;
+	}
+	function reqAd(){
+		if(!arrAd.length) arrAd.push(1,2,3,4,5,6,7,8,9,10);
+	}
+	function loadAd(i){
+		$("#item-ad-"+i).html('<p>'+(i)+'</p><p>广告'+arrAd[0]+'</p>');
+		arrAd.shift(0);
+		console.log(arrAd);
+	}
+	reqAd();
+	reqContent();
+
+
+	$("#btn").on("click",function(){
+		reqAd();
+		reqContent();
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width initial-scale=1.0 minimum-scale=1.0 maximum-scale=1.0 user-scalable=no">
+	<title>Document</title>
+	<style type="text/css">
+		 * {margin: 0; padding: 0;}
+		 div {
+		 	width: 200px;
+		 	height: 44px;
+		 	overflow: hidden;
+		 	line-height: 22px;
+		 }
+		 div h3 {
+		 	display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+		 }
+	</style>
+</head>
+<body>
+	<div>
+		<h3>章莹颖案律师:家人驱车前往小镇寻找章莹颖章莹颖案律师:家人驱车前往小镇寻找章莹颖</h3>
+	</div>
+</body>
+</html>
+<script>
+	let str = `<li data-from="news" class="{{liCoversClass}}" data-ctitle="0" data-gid="{{gid}}" data-s_log="JSON.stringify({{s_log}})"  >
+        <a data-log="link" href="{{url}}" target="_blank" title="{{titleFull}}" class="respond">
+        // 多图或无图title-start
+        <% if(liCoversClass != "single-img"){ %>
+    <p data-log="title" class="sub-title"><%= title %></p>
+        <% } %>
+    // 多图或无图title-end
+
+    // 图片-start
+    <% if(covers.length > 0){ %>
+    <div class="img">
+        <% for(var i = 0 len = covers.length; i < len; i++){ %>
+    <span class="img-wrap<%= i == 0 ? " first" : "" %>">
+    <img onerror="So.web.newsFlow.checkImg()" data-log="image" <%= covers[i].style %> width="<%= coversW %>px" height="<%= coversH %>px" src="<%= covers[i].src %>">
+        </span>
+        <% } %>
+    <% if(corner){ %>
+    <div data-log="image" class="corner <%= cornerClass %>"><%= corner %></div>
+        <% } %>
+    </div>
+    <% } %>
+    // 图片-end
+
+    // 单图title-start
+    <% if(liCoversClass == "single-img"){ %>
+    <div class="con">
+        <p data-log="title" class="sub-title"><%= title %></p>
+        <% } %>
+    // 单图title-end
+
+    			<% if(summary){ %>
+        			<p data-log="summ" class="summ"><%= summary %></p>
+        			<% } %>
+        			<p data-log="desc" class="desc"><%= ico %><%= source %><%= date %></p>
+
+        // 单图con-start
+        		<% if(liCoversClass == "single-img"){ %>
+        		</div>
+        		<% } %>
+        // 单图title-end
+
+        	</a>
+        	<div class="close"><span>不感兴趣</span></divs>
+        </li>`
+</script>

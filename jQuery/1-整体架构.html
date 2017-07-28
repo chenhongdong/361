@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script src="jquery-2.0.3.js"></script>
+<script>
+	// $().find().css()
+	// $().hide().html('.....').hide()
+
+	/*
+		1.jq对象的构建方式
+		2.jq方法的调用方式
+	*/
+
+	// 一 : jq的无new构建
+
+	// 1
+	/*var aQ = function (selector, context) {
+		// 构造函数
+	};
+
+	aQ.prototype = {
+		// 原型
+		name: function() {return 'name'},
+		age: function() {return 'age'}
+	};
+
+	var a1 = new aQ;
+	a1.name()*/
+
+	// $().ready()		$().noConflict()
+
+
+	// 2
+	var aQ = function (selector, context) {
+		// 构造函数
+		return aQ.prototype.init();
+	};
+
+	aQ.prototype = {
+		// 原型
+		init: function () {
+			return this;
+		},
+		name: function() {return 'name'},
+		age: function() {return 'age'}
+	};
+
+	console.log(aQ.prototype);
+
+	
+</script>
