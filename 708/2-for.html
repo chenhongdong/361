@@ -20,9 +20,32 @@
 			{name: '爱笑的眼睛2'},
 			{name: '爱笑的眼睛3'},
 			{name: '爱笑的眼睛3'},
-			{name: '爱笑的眼睛3'}
+			{name: '爱笑的眼睛3'},
+            {name: '爱笑的眼睛1'},
+            {name: '爱笑的眼睛11'},
+            {name: '爱笑的眼睛111'},
+            {name: '爱笑的眼睛2'},
+            {name: '爱笑的眼睛2'},
+            {name: '爱笑的眼睛2'},
+            {name: '爱笑的眼睛3'},
+            {name: '爱笑的眼睛3'},
+            {name: '爱笑的眼睛3'},
+            {name: '爱笑的眼睛3'},
+            {name: '爱笑的眼睛3'},
+            {name: '爱笑的眼睛1'},
+            {name: '爱笑的眼睛1'},
+            {name: '爱笑的眼睛11'},
+            {name: '爱笑的眼睛111'},
+            {name: '爱笑的眼睛2'},
+            {name: '爱笑的眼睛2'},
+            {name: '爱笑的眼睛2'},
+            {name: '爱笑的眼睛3'},
+            {name: '爱笑的眼睛3'},
+            {name: '爱笑的眼睛3'},
 		]
-	}, len = data.item.length, num = 0, res = [], step = 3;
+	}, len = data.item.length, num = 0, res = [], step = 10;
+	console.log(len);
+	
 
 	function fmtData(arr, tarArr, step){
 		for (var i=0; i<arr.length; i++){
@@ -36,12 +59,12 @@
 
 	fmtData(data.item, res, step);
 
-	console.log(res)
-	
+
 	function viewUl(data, vWrap){
 		for (var i in data){
 			var vUl = document.createElement('ul');
 			for (var j in data[i]){
+                console.log(data[i][j]);
 				var vLi = document.createElement('li');
 				vLi.innerHTML = data[i][j].name;
 				vUl.appendChild(vLi);

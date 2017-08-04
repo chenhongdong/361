@@ -69,19 +69,15 @@
     function calc() {
         let scroll = $(window).scrollTop(),
             wH = $(window).height(),
-            result = [],
-            json = {};
-       
+            result = [];
+
         $('li').each((i, ele)=> {
             let iTop = $(ele).offset().top,
                 h = scroll,
                 h2 = scroll + wH;
 
             if (iTop >= h && iTop <= h2) {
-                if (!json[i]) {
-                    result.push({index: i});
-                    json[i] = 1;
-                }
+                result.push({index: i});
             }
 
         });
@@ -89,7 +85,9 @@
         result.forEach((item, i) => {
             console.log(item.index);
             sendMsg(item.index);
-        })
+        });
+
+
     }
 
     //calc();
