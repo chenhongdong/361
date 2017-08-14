@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数柯里化</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+	// 1.调用两次情况
+	/*function add(a) {
+		return function(b) {
+			return a + b;
+		}
+	}
+
+	console.log(add(1)(2));*/
+
+	// 2.调用三次情况
+	/*function add(a) {
+		return function(b) {
+			return function(c) {
+				return a + b + c;
+			}
+		}
+	}
+	console.log(add(1)(2)(3));*/
+
+	function add() {
+		// 第一次执行时，将参数都存起来
+		let args = [].slice.call(arguments);
+		let adder = function() {
+			let _adder = function() {
+				[].push.apply(args, [].slice.call(arguments));
+				return _adder;
+			};
+
+			_adder.toString = function() {
+				return args.reduce(function(a, b) {
+					return a + b;
+				});
+			};
+
+			return _adder;
+		};
+		return adder.apply(null, [].slice.call(arguments));
+	}
+
+
+
+	
+
+	console.log(add(1, 2, 3, 4, 5));  
+	console.log(add(1, 2, 3, 4)(5));  
+	console.log(add(1)(2)(3)(4)(5));
+
+</script>

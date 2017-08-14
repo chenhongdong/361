@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>map方法</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+	Array.prototype._map = function(fn, context) {
+		let res = [];
+		if (typeof fn == 'function') {
+			let len = this.length, i;
+			for (i = 0; i < len; i++) {
+				res.push(fn.call(context, this[i], i, this));
+			}
+		}
+
+		return res;
+	};
+
+	let arr = [1, 2, 3];
+
+	let newArr = arr._map(item => {
+		return item * 5;
+	});
+	console.log(newArr);
+</script>

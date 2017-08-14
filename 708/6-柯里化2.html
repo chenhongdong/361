@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>柯里化</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+	Array.prototype._merge = function(fn, chars) {
+		return this.map(fn).join(chars);
+	}
+
+	let arr = [1, 2, 3, 4];
+
+	let add = function(num) {
+		return function(item) {
+			return item + num;
+		}
+	};
+
+	let red = function(num) {
+		return function(item) {
+			return item - num;
+		}
+	};
+
+	// 每一项加2合并
+	let res1 = arr._merge(add(2), '~');
+
+	// 每一项减1合并
+	let res2 = arr._merge(red(1), '<');
+
+	// 也可以直接使用回调函数，每一项*2
+	let res3 = arr._merge((function(num) {
+		return function(item) {
+			return item * num;
+		}
+	})(2), '!=');
+
+	console.log(res1);
+	console.log(res2);
+	console.log(res3);
+
+
+	// 柯里化
+	function currying(fn) {
+		let args = [].slice.call(arguments, 1);
+
+		return function() {
+			let _args = args.concat([].slice.call(arguments));
+			return fn.apply(null, _args);
+		}
+	}
+
+	let sum = currying(function() {
+		var args = [].slice.call(arguments);
+		return args.reduce(function(a, b) {
+			return a + b;
+		});
+	}, 10);
+
+	console.log(sum(20, 20));
+	console.log(sum(10, 5))
+</script>
