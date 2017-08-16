@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body style="height: 2000px;">
+    <button id="btn" style="position: fixed;">Go</button>
+</body>
+</html>
+<script>
+    // 在向其他执行上下文的传递中，确保this的指向保持不变
+
+    // 保存this引用
+    /*var obj = {
+        a: 20,
+        getA: function() {
+            // 记录this，否则定时器里的this指向为window
+            var self = this;
+            setTimeout(function() {
+                console.log(self.a);
+            }, 1000);
+        }
+    };
+
+    obj.getA();*/
+
+    var oBtn = document.querySelector('#btn');
+    oBtn.onclick = function() {
+        var scrollTop = document.body.scrollTop;
+
+        document.body.scrollTop += 100; 
+    }
+
+
+    // 利用闭包和apply
+    function bind(fn, obj) {
+        return function() {
+            return fn.apply(obj, arguments);    
+        }
+    }
+
+    var obj = {
+        a: 20,
+        getA: function() {
+            setTimeout(bind(function() {
+                console.log(this.a);
+            }, this), 500);
+        }
+    };
+    obj.getA();
+
+</script>

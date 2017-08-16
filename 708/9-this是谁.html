@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+  /* var a = 10;
+   var obj = {
+        a: 20
+   };
+
+   function fn() {
+        console.log(this.a);
+   }
+
+   fn();
+   fn.call(obj);*/
+
+   // 函数中的this
+   //demo1
+   /*var a = 1;
+   function fn() {
+    console.log(this.a);
+   }
+   fn();*/
+
+   //demo2
+   /*var b = 2;
+   function fn2() {
+        function foo(){
+            console.log(this.b)
+        }
+        foo();
+   }
+
+   fn2();*/
+
+   // demo3
+   /*var a = 20;
+   var obj = {
+    a: 10,
+    c: this.a + 20,
+    fn: function() {
+        return this.a;
+    }
+   };
+
+   console.log(obj.c);
+   console.log(obj.fn());*/
+
+   //demo4
+   /*var a = 20;
+   var foo = {
+    a: 10,
+    getA: function() {
+        return this.a;
+    }
+   };
+
+   console.log(foo.getA());
+
+   var test = foo.getA;
+   console.log(test());*/
+
+   //demo5
+   function foo() {
+    console.log(this.a);
+   }
+
+   function active(fn) {
+    fn();
+   }
+
+   var a = 20;
+   var obj = {
+    a: 10,
+    getA: foo
+   };
+
+   active(obj.getA);
+</script>

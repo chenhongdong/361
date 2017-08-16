@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <a href="">1</a>
+    <a href="">2</a>
+    <a href="">3</a>
+    <a href="">4</a>
+    <a href="">5</a>
+</body>
+</html>
+<script>
+    // 将类数组转为数组
+    function exam(a, b, c, d, e) {
+        console.log(arguments);
+        var args = [].slice.call(arguments);
+        console.log(args);
+    }
+
+
+    exam(2, 7, 8, 9, 4);
+
+    var arrA = [].slice.call(document.getElementsByTagName('a'));
+    console.log(arrA);
+
+
+    // 根据自己的需要灵活修改this指向
+    var foo = {
+        name: '路飞',
+        show: function() {
+            console.log(this.name);
+        }
+    };
+
+    var bar = {
+        name: '艾斯'
+    };
+
+    foo.show.call(bar);
+
+    // 实现继承
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    function Man(name, age, sex) {
+        Person.call(this, name, age);
+        this.sex = sex;
+    }
+
+    Man.prototype.showSex = function() {
+        console.log(this.sex);
+    };
+
+    var man = new Man('林更新', 30, '男人');
+    man.showSex();
+</script>
