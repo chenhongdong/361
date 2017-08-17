@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="box" style="transform: translate(100px, 120px);width:299px;height:100px;border: 1px solid #0c9">1</div>
+</body>
+</html>
+<script>
+    // 检测是否支持transform
+    function getTransform() {
+        let transform = '',
+            style = document.createElement('div').style,
+            tArr = ['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'];
+
+        for (var i = 0, len = tArr.length; i < len; i++) {
+            if (tArr[i] in style) {
+                return transform = tArr[i];
+            }
+        }
+
+        return transform;
+    }
+
+    // 获取style
+    function getStyle(obj, attr) {
+        return obj.currentStyle ? obj.currentStyle(attr) : getComputedStyle(obj, false)[attr];    
+    }
+
+    // 获取目标初始位置
+    function getTargetPos(ele) {
+        let pos = {x: 0, y: 0},
+            transform = getTransform();
+            
+        if (transform) {
+            let value = getStyle(ele, transform);
+            if (value == 'none') {
+                ele.style[transform] = 'translate(0, 0)';
+                return pos;
+            } else {
+                let tmp = value.match(/-?\d+/g);
+                return pos = {
+                    x: ~~(tmp[4].trim()),
+                    y: ~~(tmp[5].trim())
+                }
+            }
+        } else {
+            if (getStyle(ele, 'position') == 'static') {
+                ele.style.position = 'relative';
+                return pos;
+            } else {
+                let x = getStyle(ele, 'left') ? getStyle(ele, 'left') : 0,
+                    y = getStyle(ele, 'top') ? getStyle(ele, 'top') : 0;
+
+                return pos = {
+                    x,
+                    y
+                }
+            }
+        }
+    }
+
+    // 设置目标位置
+    function setTargetPos(ele, pos) {
+        let transform = getTransform();
+        if (transform) {
+            ele.style[transform] = `translate(${pos.x}px, ${pos.y}px)`;
+        } else {
+            ele.style.left = pox.x + 'px';
+            ele.style.top = pox.y + 'px';
+        }
+        return ele;
+    }
+
+    let box = document.querySelector('#box');
+
+    let value = getStyle(box, 'transform');
+    console.log(getTargetPos(box));
+
+    let startX = 0,
+        startY = 0,
+        sourceX = 0,
+        sourceY = 0;
+
+    box.addEventListener('mousedown', start, false);
+
+    function start(ev) {
+        // 获取鼠标初始位置
+        startX = ev.pageX;
+        startY = ev.pageY;
+
+        let pos = getTargetPos(box);
+
+        sourceX = pos.x;
+        sourceY = pos.y;
+
+        document.addEventListener('mousemove', move, false);
+        document.addEventListener('mouseup', up, false);
+    }
+
+    function move(ev) {
+        let disX = ev.pageX - startX,
+            disY = ev.pageY - startY;
+
+        setTargetPos(box, {
+            x: (sourceX + disX).toFixed(),
+            y: (sourceY + disY).toFixed()
+        });
+    }
+
+    function up() {
+        document.removeEventListener('mousemove', move);
+        document.removeEventListener('mouseup', up);
+    }
+</script>

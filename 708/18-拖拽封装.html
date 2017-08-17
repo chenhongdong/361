@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="box" style="transform: translate(100px, 120px);width:299px;height:100px;background: #0c9">1</div>
+</body>
+</html>
+<script>
+    ;(function() {
+        // 私有变量，不能访问到
+        let transform = getTransform();
+
+        // 构造函数
+        function Drag(obj) {
+            this.ele = typeof obj == 'Object' ? obj : document.getElementById(obj);
+            this.startX = 0;
+            this.startY = 0;
+            this.sourceX = 0;
+            this.sourceY = 0;
+
+            this.init();
+        }
+
+        Drag.prototype = {
+            constructor: Drag,
+            init: function() {
+                this.setDrag();
+            },
+            getStyle: function(attr) {
+                return this.ele.currentStyle ? this.ele.currentStyle(attr) : getComputedStyle(this.ele, false)[attr];
+            },
+            getPos: function() {
+                let pos = {x: 0, y: 0};
+
+                if (transform) {
+                    let value = this.getStyle(transform);
+                    if (value == 'none') {
+                        this.ele.style[transform] = 'translate(0, 0)';
+                        return pos;
+                    } else {
+                        let tmp = value.match(/-?\d+/g);
+                        return pos = {
+                            x: ~~(tmp[4]),
+                            y: ~~(tmp[5])
+                        }
+                    }
+                } else {
+                    if (this.getStyle('position') == 'static') {
+                        this.ele.style.position = 'relative';
+                    } else {
+                        let x = ~~(this.getStyle('left') ? this.getStyle('left') : 0),
+                            y = ~~(this.getStyle('top') ? this.getStyle('top') : 0);
+
+                        pos = {
+                            x,
+                            y
+                        }
+                    }
+                }
+
+                return pos;
+            },
+            setPos: function(pos) {
+                if (transform) {
+                    console.log(pos.x, pos.y)
+                    this.ele.style[transform] = `translate(${pos.x}px, ${pos.y}px)`;
+                } else {
+                    this.ele.style.left = pos.x + 'px';
+                    this.ele.style.top = pos.y + 'px';
+                }
+            },
+            setDrag: function() {
+                let self = this;
+                this.ele.addEventListener('mousedown', start);
+
+                function start(ev) {
+                    self.startX = ev.pageX;
+                    self.startY = ev.pageY;
+
+                    let pos = self.getPos();
+                    self.sourceX = pos.x;
+                    self.sourceY = pos.y;
+
+                    document.addEventListener('mousemove', move);
+                    document.addEventListener('mouseup', up);
+                }
+
+                function move(ev) {
+                    let disX = ev.pageX - self.startX,
+                        disY = ev.pageY - self.startY;
+
+                    self.setPos({
+                        x: (self.sourceX + disX).toFixed(),
+                        y: (self.sourceY + disY).toFixed()
+                    });
+                }
+
+                function up() {
+                    document.removeEventListener('mousemove', move);
+                    document.removeEventListener('mouseup', up);
+                }
+
+            }
+        }
+
+        // 私有方法
+        function getTransform() {
+            let str = '',
+                style = document.createElement('div').style,
+                arr = ['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'];
+
+            for (let i = 0, len = arr.length; i < len; i++) {
+                if (arr[i] in style) {
+                    return str = arr[i];
+                }
+            }
+            return str;
+        }
+
+        // 向外暴露接口
+        window.Drag = Drag;
+    })();
+
+    new Drag('box');
+</script>
