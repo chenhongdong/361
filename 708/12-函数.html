@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    // 匿名函数    
+    // 使用场景多作为一个参数传入另一个函数
+
+    var a = 10;
+    function fn(bar, num) {
+        return bar() + num;
+    }
+
+    var n = fn(function() {
+        return a;
+    }, 20);
+
+    console.log(n);
+
+
+    // 模块
+    (function() {
+        // 私有变量
+        var age = 20;
+        var name = 'Tom';
+
+        // 私有方法
+        function getName() {
+            return name;
+        }
+
+        // 公有方法
+        function getAge() {
+            return age;
+        }
+        // 将引用放在外部执行环境的变量中，形成闭包，防止被垃圾回收机制回收
+        window.getAge = getAge;
+    })();
+
+
+    // 
+    var person = {
+        name: 'Grep'
+    };
+
+    function setName(obj) {
+        obj = {};   // 将传入的引用引向另一个值，如果直接修改传过来的引用会修改person对象
+        obj.name = 'Chris';
+    }
+
+    setName(person);
+    console.log(person.name);
+</script>

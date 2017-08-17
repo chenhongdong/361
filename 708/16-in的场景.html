@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    // 用in来判断是否是移动端
+    let isMobile = 'ontouchstart' in document;
+
+    console.log(isMobile);
+
+
+    // 构造函数的简单写法
+    function Human() {}
+
+    Human.prototype = {
+        constructor: Human,
+        getName: () => {},
+        getAge: () => {},
+        getSex: () => {}
+    };
+</script>

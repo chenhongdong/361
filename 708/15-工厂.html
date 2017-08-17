@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    var person = {
+        name: 'Tom',
+        age: 20,
+        getName: () => {
+            return this.name;
+        }
+    };
+
+    function createPerson(name, age) {
+        var o = {};
+        o.name = name;
+        o.age = age;
+        o.getName = function() {
+            return this.name;
+        };
+        return o;
+    }
+
+    var Tom = new createPerson('Tom', 12);
+    var Jack = new createPerson('Jack', 22);
+
+    console.log(Tom.getName());
+    console.log(Jack.age);
+
+
+    // 缺点不能识别实例对象的类型   instanceof 
+
+
+
+
+    // 构造函数
+    function demo() {
+        console.log(this);
+    }
+    demo();     // window
+    new demo(); // demo
+
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.getAge = function() {
+            return this.age;
+        }
+    }
+
+
+    // 缺点是方法会重复生成
+
+
+    // 原型上写公用方法
+    Person.prototype.getAge = () => {
+        return 20;
+    };
+
+    var p1 = new Person('Tim', 39);
+
+    console.log(p1.getAge());
+
+    console.log('getAge' in p1);    // in用来查看对象是否有该属性/方法
+
+
+
+</script>

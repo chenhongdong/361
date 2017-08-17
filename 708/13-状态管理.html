@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    (function() {
+        // status  结构预览
+        /* 
+            status = {
+                a: 1,
+                b: 2,
+                m: {},
+                o: { m: m}    
+            }
+        */
+
+        var status = {};  //私有变量，用来存储
+
+        // 判断类型
+        function type(ele) {
+            if (ele === null) {
+                return ele + '';
+            }
+            return toString.call(ele).replace(/[\[\]]/g, '').split(' ')[1].toLowerCase();
+        }
+
+        function get(name) {
+            return status[name] ? status[name] : '';
+        }
+
+        function getStatus() {
+            return status;
+        }
+
+        function set(options, target) {
+            var keys = Object.keys(options);
+            var o = target ? target : status;
+
+            keys.map(function(item) {
+                if (typeof o[item] == 'undefined') {
+                    o[item] = options[item];
+                } else {
+                    type(o[item]) == 'object' ? set(options[item], o[item]) : o[item] = options[item];
+                }
+                return item;
+            });
+        }
+
+        // 提供对外接口
+        window.get = get;
+        window.set = set;
+        window.getStatus = getStatus;
+    })();
+
+
+    set({a: 20});
+    set({b: 2});
+    set({m: {name: '茶树菇'}});
+
+
+    set({m: {name: '平菇', cat: '蘑菇'}});
+
+    console.log(getStatus());
+</script>
