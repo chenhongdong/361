@@ -39,3 +39,9 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+
+<% if(suc) {%>
+    <div class="alert alert-success"><%=suc%></div>
+<%} else if(err) {%>
+    <div class="alert alert-danger"><%=err%></div>
+<%}%>

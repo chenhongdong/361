@@ -39,6 +39,8 @@ app.use(flash());
 
 app.use(function (req, res, next) {
     res.locals.user = req.session.user;
+    res.locals.suc = req.flash('suc').toString();
+    res.locals.err = req.flash('err').toString();
     next();
 });
 
