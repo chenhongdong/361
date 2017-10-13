@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+    <button id="btn">加载</button>
+    <div id="box" style="height: 550px; border: 1px solid #0c9;"></div>
+	<div id="div" style="width:100%;height: 100%;border:1px solid #00a1f5;overflow-y: scroll"></div>
+</body>
+</html>
+<script src="jsonp.js"></script>
+<script src="http://m.news.so.com/resource/js/lib/zepto.js"></script>
+<script type="text/javascript">
+	let doc = document,
+        win = window,
+        btn = doc.querySelector('#btn'),
+        div = doc.querySelector('#div');
+
+
+    btn.onclick = function() {
+	    let _this = this;
+        load(9, 1).then(function() {
+            _this.style.display = 'none';
+        });
+	};
+
+    function load(count, num) {
+        return new Promise((resolve) => {
+            JSONP({
+                url: 'http://trans.news.so.com:19089/transcode/relatednews',
+                params: {l: count, p: num, q: '杨幂', f: 'jsonp', d: 'mobile', fr: 'm.news'},
+                callback: 'callback',
+                success: function(data) {
+                    renderNews(data);
+                    resolve();
+                }
+            });
+        });
+    }
+
+	function renderNews(data) {
+        data = data.related_news.items;
+        let box = doc.createElement('div');
+        box.className = 'box';
+        data.forEach((item, i) => {
+            let newItem = formatData(item, i);
+            box.appendChild(newItem);
+        });
+
+        div.appendChild(box);
+
+
+    }
+
+    function formatData(item, i) {
+        let newItem = doc.createElement('div');
+        let str = '';
+        newItem.className = 'list-' + i;
+
+        str += `<div class="title"><a style="color:goldenrod" href="${item.url}">${item.title}</a></div><div class="content">${item.content}</div>`;
+        newItem.innerHTML = str;
+        return newItem;
+    }
+
+    win.loading = false;
+
+    win.onscroll = function() {
+	    let scrollTop = document.body.scrollTop;
+        let target = doc.querySelector('.list-5').offsetTop;
+        let iTop = div.offsetTop;
+
+        console.log(div.offsetTop);
+        console.log(div.style.overflowY);
+        console.log(scrollTop);
+        if (!win.loading) {
+            if (scrollTop + iTop > target) {
+                load(6, 2).then(function() {
+                    win.loading = true;
+                });
+            }
+        }
+
+    };
+</script>

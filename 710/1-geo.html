@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>地理信息</title>
+</head>
+<body>
+    <p id="demo">点击按钮，获得你的坐标</p>
+    <button onclick="getLocation()">试试</button>
+</body>
+</html>
+<script>
+    var demo = document.querySelector('#demo');
+
+    function getLocation() {
+        console.log(navigator.geolocation);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            deom.innerHTML = '不支持';
+        }
+    }
+
+    function showPosition(pos) {
+        demo.innerHTML = `纬度是：${pos.coords.latitude}, 经度是：${pos.coords.longitude}`;
+    }
+</script>

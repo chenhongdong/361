@@ -65,7 +65,6 @@
             },
             setPos: function(pos) {
                 if (transform) {
-                    console.log(pos.x, pos.y)
                     this.ele.style[transform] = `translate(${pos.x}px, ${pos.y}px)`;
                 } else {
                     this.ele.style.left = pos.x + 'px';
