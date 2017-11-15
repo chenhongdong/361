@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="clickme">Click me: 0</button>
+</body>
+</html>
+<script>
+    let btn = document.querySelector('#clickme');
+
+    // 特性检测
+    if (document.addEventListener) {
+        btn.addEventListener('click', handler, false);
+    } else if (document.attachEvent) {
+        btn.attachEvent('onclick', handler);
+    } else {
+        btn.onclick = handler;
+    }
+
+    function handler(ev) {
+        let e = ev || event,
+            src = e.target || e.srcElement;
+
+        let part = src.innerHTML.split(': ');
+        part[1] = parseInt(part[1]) + 1;
+        src.innerHTML = part[0] + ': ' + part[1];
+
+        // 阻止冒泡
+        if (typeof e.stopPropagation === 'function') {
+            e.stopPropagation();
+        }
+        if (typeof e.cancelBubble !== 'undefined') {
+            e.cancelBubble = true;
+        }
+
+        // 阻止默认行为
+        if (typeof e.preventDefault === 'function') {
+            e.preventDefault();
+        }
+        if (typeof e.returnValue !== 'undefined') {
+            e.returnValue = false;
+        }
+    }
+</script>

@@ -36,7 +36,7 @@
                 if (this.isDefined(name)) {
                     return false;
                 }
-                if (!ownPro.call(allowed, typeof value)) {
+                if (!ownProp.call(allowed, typeof value)) {
                     return false;
                 }
                 constants[prefix + name] = value;
@@ -50,4 +50,12 @@
             }
         }
     }());
+
+    let MAX_WIDTH = constant.set('max_width', 360);
+
+    console.log(constant.isDefined('max_width'));
+    constant.set('max_width', 1000)
+
+    console.log(constant.get('max_width'));
+    console.log(constant.get('max_height'));
 </script>

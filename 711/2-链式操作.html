@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let obj = {
+        value: 1,
+        increment() {
+            this.value++;
+            return this
+        },
+        add(n) {
+            this.value += n;
+            return this;
+        },
+        short() {
+            console.log(this.value);
+        }
+    };
+
+    obj.increment().add(3).short();
+
+
+
+
+    // 实现method方法
+    if (typeof Function.prototype.method !== 'function') {
+        Function.prototype.method = function (name, fn) {
+            this.prototype[name] = fn;
+            return this;
+        };
+    }
+
+    // 利用语法糖
+    let Person = function (name) {
+        this.name = name;
+    }.
+        method('getName', function () {
+            return this.name;
+        }).
+        method('setName', function (name) {
+            this.name = name;
+            return this;
+        });
+
+
+
+
+    let p1 = new Person('哈利波特');
+    console.log(p1.getName());
+    console.log(p1.setName('赫敏').getName());
+</script>
