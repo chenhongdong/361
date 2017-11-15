@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script src="jquery-2.0.3.js"></script>
+<script>
+	// 正常写法
+	/*function A(list, cb) {
+		setTimeout(function() {
+			var task = list.shift();
+			task();	//执行函数
+
+			if (list.length > 0) {
+				setTimeout(arguments.callee, 100);	// 递归分解
+			} else {
+				cb();
+			}
+		}, 30);
+
+	}
+
+	A([function() {
+		console.log('first');
+	}, function() {
+		console.log('second');
+	}], function() {
+		console.log('callback');
+	});*/
+
+
+	let cb = $.Callbacks('once');
+	// once的使用是使队列只执行一次
+	// add参数可以是函数或函数数组
+	cb.add([function() {
+		console.log('a');
+	}, function() {
+		console.log('b');
+	}]);
+
+	cb.fire();	// 执行了once，后面的就不再触发
+	/*
+		这是在fire的时候执行了，self.disable
+		disable: function() {
+			list = stack = memory = undefined;
+			return this;
+		}
+	*/
+	cb.add(function(){alert(1)});
+	cb.fire();
+
+
+	// demo
+	function fn1(val) {
+		console.log(val);
+	}
+
+	function fn2() {
+		console.log('say hi ');
+		return false;
+	}
+
+	function test() {
+		console.log('双击屏幕，666');
+	}
+
+	let callbacks = $.Callbacks('memory');
+
+	callbacks.add(fn1);
+	callbacks.fire('你好');
+	callbacks.add(test);
+	callbacks.add(function(){console.log('一枝梅')})
+	callbacks.add(fn2);	// memory 即使在没有fire的情况，后添加到列表中的函数也能执行
+	/*
+		就是fn2这个函数会存储在memory变量中，然后再统一执行这时memory是这样的[fn1, test, 匿名函数, fn2]
+	*/
+
+
+	let cbs = $.Callbacks('unique');	// 相同函数，防止重复添加
+	cbs.add(test);
+	cbs.add(fn2);
+	cbs.add(test);
+	cbs.fire();
+	/*
+		if ( !options.unique || !self.has(arg)) {	// 确保是否可以重复
+			list.push(arg);
+		}
+	*/
+
+
+	let calls = $.Callbacks('memory stopOnFalse');	// stopOnFalse 遇到函数里return false了，之后的列表就不再添加
+	calls.add(test);
+	calls.add(fn2);
+	calls.fire();
+
+	calls.add(function(){console.log('春江水')});
+
+	// 常规的发布订阅
+	let Observe = {
+		callbacks: [],
+		add: function(fn) {
+			this.callbacks.push(fn)
+		},
+		fire: function() {
+			this.callbacks.forEach(fn => fn());
+		}
+	};
+
+	// Observe.add(function(){console.log('Jocker')});
+	// Observe.add(function() { console.log('mover like this')})
+	// Observe.fire()
+</script>

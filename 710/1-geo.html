@@ -7,8 +7,14 @@
 <body>
     <p id="demo">点击按钮，获得你的坐标</p>
     <button onclick="getLocation()">试试</button>
+    <div id="content"></div>
 </body>
 </html>
+<!-- 引用的app.js就是ws自动编译的app.ts -->
+<!--<script src="app.js"></script>-->
+<!--<script src="hello.js"></script>-->
+<!--<script src="newsAjax.js"></script>-->
+<script src="http://s0.qhmsg.com/lib/jquery/183.js"></script>
 <script>
     var demo = document.querySelector('#demo');
 
@@ -24,4 +30,34 @@
     function showPosition(pos) {
         demo.innerHTML = `纬度是：${pos.coords.latitude}, 经度是：${pos.coords.longitude}`;
     }
+
+    let datas = {
+        uid: '1273',
+        adslots: [
+            {
+                id: '900547722',
+                adtype: 3
+            }
+        ]
+    };
+
+    console.log(JSON.stringify(datas));
+
+    $.ajax({
+        url: 'http://uflow.so.com:30005/ads',
+        type: 'POST',
+        dataType: 'jsonp',
+        contentType: 'application/json',
+        callback: 'jsonp1',
+        data: {
+            s: 'jrtt',
+            f: 'jsonp',
+            data: JSON.stringify(datas)
+        },
+        success: function (res) {
+
+        }
+    })
+
+    // "http://uflow.so.com:30005/ads?callback=jQuery18309421164232158821_1508380603017&s=jrtt&f=jsonp&data%5Bappid%5D=1273&data%5Babsolte%5D%5B0%5D%5Badtype%5D=3&_=1508380603019"
 </script>

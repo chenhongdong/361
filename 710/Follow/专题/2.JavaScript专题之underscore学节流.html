@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1">
+    <title>throttle</title>
+    <style>
+        .box{
+            width: 100%; height: 200px; line-height: 200px; text-align: center; color: #fff; background-color: #444; font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="box" class="box"></div>
+<div id="box2" class="box"></div>
+<script src="throttle.js"></script>
+</body>
+
+</html>
+<script>
+    // 例子
+    let num = 0;
+    let num2 = 0;
+    let box = document.getElementById('box');
+    let box2 = document.getElementById('box2');
+
+    function getUserAction() {
+        box.innerHTML = num++;
+        box2.innerHTML = num2++;
+    }
+
+    box.onmousemove = throttle(getUserAction, 3000);
+    box2.onmousemove = throttle(function () {
+        getUserAction();
+    }, 3000);
+
+
+</script>
