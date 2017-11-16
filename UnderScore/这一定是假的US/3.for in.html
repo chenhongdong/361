@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    *   for in
+    *   循环只遍历可枚举属性
+    *
+    * */
+
+    // 举个例子
+    var obj = {name: '钱德勒', age: 100};
+
+
+    for (var k in obj) {
+        console.log(k, obj[k]);
+    }
+
+    // 输出
+    // name 钱德勒
+    // age 100
+
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    Person.prototype = {
+        getName() {
+            return this.name
+        },
+        eat() {
+            console.log('饿了想吃饭');
+        },
+        getAge() {
+            return this.age;
+        }
+    };
+
+    var p1 = new Person('无花果', 100);
+
+    for (var i in p1) {
+        if (p1.hasOwnProperty(i)) {
+            console.log(i, p1[i]);
+        }
+
+    }
+
+    // Object.keys 会过滤掉来自原型上的属性
+    Object.keys(p1).forEach(item => {
+        console.log(p1[item]);
+    });
+
+
+
+    /*
+    *   对象的toString内置属性被重写了，
+    *   ['valueOf', 'toString', 'hasOwnProperty', 'isPrototypeOf', 'toLocaleString', 'propertyIsEnumerable', 'constructor']
+    *   IE8以下都不可枚举
+    *
+    *   us中用了hasEnumBug函数来判断
+    *   主要依靠propertyIsEnumerable来实现
+    *   propertyIsEnumerable是检测属性是否可枚举
+    *
+    *
+    * */
+    var o = {toString: 'NBA'};
+
+    for (var i in o) {
+//        alert(i);
+    }
+
+    // 实现hasEnumBug
+    var hasEnumBug = !{toString: null}.propertyIsEnumerable('toString');
+
+
+
+    // underscore实现
+    function collectNonEnumProps(obj, keys) {
+        var nonEnumIdx = nonEnumerableProps.length;
+        var constructor = obj.constructor;
+
+        // proto 是否继承的 prototype
+        var proto = (_.isFunction(constructor) && constructor.prototype) || ObjProto;
+
+        // constructor 需要特殊处理
+        // 如果obj有 'constructor'这个key
+        // 并且该key没有在keys数组中
+        // 存入数组
+        var prop = 'constructor';
+        if (_.has(obj, prop) && !_.contains(keys, prop)) keys.push(prop);
+
+        // nonEnumerableProps数组中的keys
+        while (nonEnumIdx--) {
+            prop = nonEnumerableProps[nonEnumIdx];
+            // prop in obj 应该肯定返回true?
+            // obj[prop] !== proto[prop] 判断该key是否来自于原型链
+            if (prop in obj && obj[prop] !== proto[prop] && !_.contains(keys, prop)) {
+                keys.push(prop);
+            }
+        }
+    }
+
+
+
+</script>
