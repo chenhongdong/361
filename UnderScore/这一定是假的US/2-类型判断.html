@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    // 类型判断
+
+    // javascript中判断数组的正确姿势
+    function isArray(o) {
+        return Object.prototype.toString.call(o) === '[object Array]';
+    }
+
+    console.log(isArray(['a', 'b', 222, {}]));
+
+    /*
+    *   下面是underscore判断“数组”的写法
+    *   nativeIsArray代表ES5中的Array.isArray
+    *   toString = Object.prototype.toString
+    *
+    *
+    *
+    *   _isArray = nativeIsArray || function (obj) {
+            return toString.call(obj) === '[object Array]';
+        };
+    * */
+
+
+    /*
+    *   underscore判断对象
+    *   把function和object都看做对象，除了null
+    *
+    *   _isObject = function (obj) {
+            var type = typeof obj;
+            return type === 'function' || type === 'object' && !!obj;
+        }
+    * */
+
+
+    /*
+    *   其他类型的判断：
+    *               Arguments, Function, Date, RegExp, String, Number, Error
+    *
+    *   都可以直接用Object.prototype.toString.call来判断
+    *
+    *   _.each(['Arguments', 'Function', 'Date', 'RegExp', 'String', 'Number', 'Error'], function(name) {
+    *       _['is' + name] = function (o) {
+                return toString.call(o) === '[object ' + name + ']';
+            }
+    *   });
+    *
+    *
+    *   在IE9下isArguments方法会得到 ['object Object']
+    *   arguments含有callee属性，callee返回当前arguments所在的函数
+    *   兼容写法
+    *   if (!_.isArguments(arguments)) {
+     *      _.isArguments = function (o) {
+                return _.has(o, 'callee');
+            }
+     *  }
+    * */
+
+
+
+
+    // ------------------------------------------------------
+    // 工具类判断方法
+
+    /*
+    *   判断是否是DOM元素
+    *   两点: 1.不为空  2.nodeType为1
+    *
+    *   _.isElement =function (ele) {
+            return !!(ele && ele.nodeType === 1);
+        }
+    * */
+
+
+    /*
+    *   判断是不是NaN
+    *   两点: 1.是数字   2.自己不等于自己
+    *   _.isNaN = function (n) {
+            return _.isNumber(n) && n !== +n;
+        }
+    * */
+</script>

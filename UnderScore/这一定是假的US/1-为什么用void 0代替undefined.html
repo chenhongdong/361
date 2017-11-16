@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    *   为什么用void 0代替undefined
+    * */
+
+    // undefined因为不是保留字，它只是全局对象下的一个属性，在IE8下会被修改
+    var undefined = 8;
+
+    alert(undefined);   // 8  =>  IE8
+
+    // ES5修改了undefined为只读属性，不可修改。
+    // 不过在局部作用域里还是可以重写
+    (function () {
+        var undefined = '局部';
+
+        alert(undefined);
+    }());
+
+    /*
+    *   用void的原因是它不能被重写，而且void会返回undefined
+    *   undefined在被压缩后其实就是void，
+    *   取0是因为节省字节数
+    *   所以用void 0代替
+    * */
+</script>
