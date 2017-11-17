@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="contact.html"></a>
+<a href="temp/b.html"></a>
+<a href="temp/c.html"></a>
+<script>
+    // underscore实现的_.isEqual
+    /*
+    *   如果判断 a === b, 为true的情况下
+    *   首先： a和b都是基本类型，那么就是两个基本类型的值相同
+    *   其次： a和b都是引用类型，那么就是引用类型的引用相同
+    * */
+
+
+
+    /*
+    *   a === b 时，
+    *   需要注意0 === -0这种特殊case
+    *   0 和 -0 不相同
+    *   if (a === b) return a !== 0 || 1 / a === 1 / b;
+    *
+    *   接下来判断 a !== b 的情况
+*       如果a 和 b 中有一个是null 或者 undefined，那么可以判断下，不用比较了
+*
+*       if (a = null || b = null ) return a === b;
+    * */
+
+
+    /*
+    *   接下来根据a 和 b的类型判断
+    *   如果类型不一样，那就没必要判断了
+    *
+    *   如果是RegExp类型
+    *   例子：
+    *       var a = /a/;
+    *       var b = new RegExp('a');
+    *
+    *       console.log(_.isEqual(a, b));   // true
+    *
+*       underscore内部实现：
+*       var a = /a/;
+*       var b = new RegExp('a');
+*
+*       var _a = '' + a;    '/a/'
+*       var _b = '' + b;    '/a/'
+*
+*       console.log(_a === _b); // true
+    * */
+
+
+    /*
+    *   如果是Number类型
+    *   NaN仅和NaN相同
+    *   将引用类型转换为基本类型
+    *   var a = new Number(1);
+    *   console.log(+a);    // 1
+    *
+    *   如果 +a !== +a
+    *   那么 a 就是 NaN
+    *   判断 b 是否是 NaN即可
+    *   if (+a !== +a) return +b !== +b;
+    *
+    *
+    *   排除了NaN的干扰
+    *   还要考虑0的干扰
+    *   用+a将Number()转换为基本类型
+    *   如果a为0，判断 1/ +a === 1 / b
+    *   否则判断 +a === +b
+    *   return +a === 0 ? 1 / +a === 1 / b : +a === +b;
+    * */
+
+
+    /*
+    *
+    *   如果是Date和Boolean类型
+    *   也用+转换成基本类型
+    *
+    *   var a = new Date();
+    *   var b = true;
+    *   var c = new Boolean(false);
+    *
+    *   console.log(+a);    //1510902302580     时间戳就是当前时间除以1000，是秒数
+    *   console.log(+b);    //1
+    *   console.log(+c);    //0
+    *
+    *   +a === +b
+    * */
+
+
+    /*
+    *   Array和Object类型
+    *   underscore采用递归方法展开来比较
+    *
+    *   例子：
+    *   var a = {name: 'alibaba', city: [{cityName: 'hangzhou', province: 'zhejiang'}], year: 2017};
+    *   var b = {name: 'alibaba', city: [{cityName: 'hangzhou', province: 'zhejiang'}], year: 2019};
+    * */
+</script>
+</body>
+</html>

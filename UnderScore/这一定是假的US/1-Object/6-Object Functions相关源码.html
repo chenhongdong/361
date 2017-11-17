@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="../../underscore-1.8.3.js"></script>
+<script>
+    // _.pick方法
+    /*
+    *   如果第二个参数是函数
+    *   if (_.isFunction(oiteratee)) {
+             keys = _.allKeys(obj);
+             iteratee = optimizeCb(oiteratee, context);
+         } else {
+             // 如果第二个参数不是函数
+             // 则后面的keys可能是数组
+             // 也可能是连续的几个并列的参数
+             // 这里要用到underscore中另一个重要的内部方法，flatten，它的作用是将嵌套的数组展开
+             keys = flatten(arguments, false, false, 1);
+
+             // 也转为 predicate 函数判断形式
+             // 将指定 key 转化为 predicate 函数
+             iteratee = function (value, key, obj) { return key in obj; };
+             obj = Object(obj);
+         }
+    * */
+
+
+    // _.create方法
+    // _.create方法非常简单，根据你给的原型，以及一些own properties，构造新的对象返回。
+
+    // 例子1
+    /*var Person = function() {};
+
+    Person.prototype = {
+        show() {
+            console.log(this.name);
+        }
+    };
+
+    var me = _.create(Person.prototype, {name: '陈乔恩'});
+
+    console.log(me);*/
+    /*
+    *  输出
+    *  Object {
+    *       name: '陈乔恩',
+    *       __proto__: Object
+    *           show: function show()
+    *           __proto__: Object
+    *  }
+    * */
+
+
+    // 例子2   ES5实现
+    /*var Person = function() {};
+
+    Person.prototype = {
+        show() {
+            console.log(this.name);
+        }
+    };
+
+    var me = Object.create(Person.prototype);
+
+    _.extendOwn(me, {name: '罗志祥'});
+
+    console.log(me);*/
+    /*
+     *  输出
+     *  Object {
+     *       name: '罗志祥',
+     *       __proto__: Object
+     *           show: function show()
+     *           __proto__: Object
+     *  }
+     * */
+
+
+    // 例子3  新定义一个构造函数，将该构造函数的prototype赋值为已知的prototype属性，然后new出来实例
+    let Person = function() {};
+
+    Person.prototype = {
+        show() {
+            console.log(this.name);
+        }
+    };
+
+    function F() {}
+
+    F.prototype = Person.prototype;
+
+    let me = new F();
+
+    _.extendOwn(me, {name: '邓超'});
+    console.log(me);
+</script>

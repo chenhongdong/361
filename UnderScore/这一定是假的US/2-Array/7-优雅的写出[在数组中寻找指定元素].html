@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="../../underscore-1.8.3.js"></script>
+<script>
+    let arr = [1, 3, 8, 5, 2, 4, 6];
+
+    let isEven = function (num) {
+        return !( num & 1);
+    };
+
+    var idx = _.findIndex(arr, isEven);
+
+    console.log(idx);   // 索引值为2
+
+
+    // 直接看源码
+    // 注意predicate 函数，其实就是把数组中的元素传入这个参数，返回一个布尔值
+    // 如果是true则满足条件
+    // 如果是false则相反
+
+    // dir === 1 从前向后找      dir === -1 从后向前找
+    function createPredicateIndexFinder(dir) {
+        // 经典闭包
+        return function (array, predicate, context) {
+            predicate = cb(predicate, context);
+
+            var length = getLength(array);
+        };
+    }
+</script>
+</body>
+</html>
