@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    /*
+    *   实现深拷贝
+    *       1.父类的属性首先是对象
+    *       2.子类必须是数组或者对象
+    *       3.递归
+    * */
+
+    function extendDeep(parent, child) {
+        let i,
+            toStr = Object.prototype.toString,
+            astr = '[object Array]';
+
+        child = child || {};
+
+        for (i in parent) {
+            if (parent.hasOwnProperty(i)) {
+                if (typeof parent[i] === 'object') {
+                    child[i] = (toStr.call(parent[i]) === astr) ? [] : {};
+                    extendDeep(parent[i], child[i]);
+                } else {
+                    child[i] = parent[i];
+                }
+            }
+        }
+
+        return child;
+    }
+
+    var parent = {
+        name: 'papa',
+        data: [1,2,3]
+    };
+
+    var child = extendDeep(parent);
+    child.data.push(4);
+    console.log(parent.data);
+    console.log(child.data);
+</script>
