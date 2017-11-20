@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    *  原型继承
+    * */
+
+    function extend(obj) {
+        function F() {}
+        F.prototype = obj;
+        return new F();
+    }
+
+    var parent = {
+        name: 'English',
+        data: [
+            {
+                'lang': 'Chinese',
+                'country': 'CHINA'
+            },
+            {
+                'lang': 'English',
+                'country': 'USA'
+            }
+        ]
+    };
+
+
+
+    var child = extend(parent);
+
+    child.data.push({'smile': true});
+    console.log(parent);
+</script>
