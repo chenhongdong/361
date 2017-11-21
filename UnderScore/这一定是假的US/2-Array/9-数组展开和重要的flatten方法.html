@@ -62,10 +62,37 @@
         return output;
     };
 
-    let ans = flatten([[1,2], [3,4]], false, false, 1);
-    console.log(ans);
+//    let ans = flatten([[1,2], [3,4]], false, false, 1);
+//    console.log(ans);
 
 
+    /*
+    *   用到这个内部方法的API
+    * */
+    _.flatten = function (array, shallow) {
+        // array => 需要展开的数组
+        // shallow => 是否展开一层
+        return flatten(array, shallow, false);  // false 为 strict变量
+    };
+
+    /*
+    *   _.union也用到了flatten内部方法，
+    *   作用：传入多个数组，然后对数组进行去重
+    * */
+
+//    var ans = _.union([[1]], [1, 2], 3, 4);
+//    console.log(ans); // => [[1], 1, 2]
+
+    _.union = function () {
+        // 首先用flatten方法将传入的数组展开成一个数组
+        // 然后就可以愉快的调用 _.uniq 方法了
+        // 假设 _.union([1,2,3], [100,122,3], [55,6,1]])
+        // arguments 为 [[1,2,3], [100,122,3], [55,6,1]]
+        // shallow 为 true 展开一层
+        // 结果为 [1,2,3,100,122,3,55,6,1]
+        // 最后去重 [1,2,3,100,122,55,6]
+        return _.uniq(flatten(arguments, true, true));
+    };
 </script>
 </body>
 </html>
