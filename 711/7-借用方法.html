@@ -15,7 +15,27 @@
 *       // call     notmyobj.doStuff.call(myobj, params1, p2, p3);
 *       // apply    notmyobj.doStuff.apply(myobj, [params1, p2, p3]);
     * */
+    // 类数组转数组
+    // 例: 借用数组的方法
+    function f() {
+        let args = [].slice.call(arguments, 1, 3);  // 这里是用slice截取数组元素
+        return args;
+    }
+    console.log(f(1,2,3,4,5));  // [2, 3]
 
+
+    // 也可以用Array.prototype.slice() 虽然长，但是不会节省了创建一个空数组的工作
+
+
+    // 现在， ES6 实现了 类数组转数组的方法   Array.from()
+
+
+
+
+
+
+
+    // 借用和绑定
     let one = {
         name: '我自己',
         say(greet) {
