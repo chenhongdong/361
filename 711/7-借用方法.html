@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   借用方法
+    *       其实就是只使用有需要的方法，不继承其他那些永远不会用到的方法。
+    *   实现
+    *       call()  和  apply()
+    *
+*       // call     notmyobj.doStuff.call(myobj, params1, p2, p3);
+*       // apply    notmyobj.doStuff.apply(myobj, [params1, p2, p3]);
+    * */
+
+    let one = {
+        name: '我自己',
+        say(greet) {
+            return `${greet}, ${this.name}`;
+        }
+    };
+
+    one.say('Hi');
+
+    let two = {
+        name: '哥俩好'
+    };
+
+    one.say.apply(two, ['Hello']);
+
+    // 方法赋值给变量
+    // this会指向全局变量
+    let say = one.say;
+    say('Bonjour');     // Bonjour, 
+    
+    let yet = {
+        name: '三星yeep',
+        method(callback) {
+            return callback('Hola');
+        }
+    };
+
+    yet.method(one.say);    // Hola,
+
+    // 以上两个情况，this都指向了全局window，所以window.name是''
+
+    // 修复this指向  可以通过简单的Bind(对象， 方法)方法来实现
+    function Bind(obj, fn) {
+        return function () {
+            return fn.apply(obj, [].slice.call(arguments));
+        };
+    }
+
+    let twosay = Bind(two, one.say);
+    twosay('您好');
+
+
+    // ES5 已经添加了bind()方法
+    // 来动手实现以下
+
+    if (typeof Function.prototype.bind === 'undefined') {
+        Function.prototype.bind = function (obj) {
+            let fn = this,
+                slice = Array.prototype.slice,
+                args = slice.call(arguments, 1);
+
+            return function () {
+                return fn.apply(obj, args.concat(slice.call(arguments)));
+            };
+        };
+    }
+
+    let three = one.say.bind(two);
+    three('MOTO');
+
+    let four = one.say.bind(two, 'Nokia');
+    four();
+
+
+
+</script>
+</body>
+</html>
