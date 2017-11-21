@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<textarea name="" id="" cols="30" rows="10" style="color: #0c9" readonly>111</textarea>
+<script src="../../underscore-1.8.3.js"></script>
+<script>
+    /*
+    *   数组展开  就是将嵌套的数组铺平
+    *   第一种: 深度展开，打破所有数组嵌套，都放在一个数组里
+    *   [[[1,2], [1,2,3]], [1,2]]   =>  [1,2,1,2,3,1,2]
+    *   第二种: 只对嵌套数组的第一层展开，没有递归展开下去
+    *   [[[1,2], [1,2,3], [1,2]]   => [[1,2], [1,2,3], 1, 2]
+    * */
+
+    var flatten = function (input, shallow, strict, startIndex) {
+        // output 数组保存结果
+        // 即flatten方法返回数据
+        // idx 为 output 的累积数组下标
+        var output = [], idx = 0;
+
+        // 根据startIndex变量确定需要展开的起始位置
+        for (var i = startIndex || 0, length = getLength(input); i < length; i++) {
+            var value = input[i];
+
+            // 数组 或者 arguments
+            if (isArrayLike(value) && (_.isArray(value) || _.isArguments(value))) {
+                // (!shallow === true)  =>  (shallow === false)
+                // shallow为 false 表示需深度展开
+                if (!shallow)
+                    // flatten方法返回数组
+                    // 将上面定义的 value 重新赋值
+                    value = flatten(value, shallow, strict);
+
+
+                //  递归展开到最后一层
+                //  或者(shallow === true) => 只展开一层
+                // value 值肯定是一个数组
+                var j = 0, len = value.length;
+
+                output.length += len;
+
+                // 将value数组的元素添加到output中
+                while ( j < len) {
+                    output[idx++] = value[j++];
+                }
+            } else if (!strict) {
+                // (!strict === true) => (strict === false)
+                // 如果是深度展开，shallow参数为false
+                // 那么当 value 不是数组，是基本类型时
+                // 肯定会走else if这里
+                // 如果strict为true，不能跳到这里
+                // 所以shallow 为 false和 strict为true搭配
+                // 得到的肯定是空数组
+                output[idx++] = value;
+            }
+        }
+
+        return output;
+    };
+
+    let ans = flatten([[1,2], [3,4]], false, false, 1);
+    console.log(ans);
+
+
+</script>
+</body>
+</html>
