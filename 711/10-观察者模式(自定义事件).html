@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   观察者模式 又名 自定义事件
+    * */
+
+    let publisher = {
+        list: {
+            any: []
+        },
+        add(fn, type) {
+            type = type || 'any';
+
+            if (typeof this.list[type] === 'undefined') {
+                this.list[type] = [];
+            }
+            this.list[type].push(fn);
+        },
+        remove(fn, type) {
+            this.visitList('remove', fn, type);
+        },
+        publish(msg, type) {
+            this.visitList('publish', msg, type);
+        },
+        visitList(action, msg, type) {
+            let pubtype = type || 'any',
+                list = this.list[pubtype],
+                i,
+                len = list.length;
+
+            for (i = 0; i < len; i++) {
+                if (action === 'publish') {
+                    list[i](msg);
+                } else {
+                    if (list[i] === msg) {
+                        list.splice(i, 1);
+                    }
+                }
+            }
+        }
+    };
+
+    // 对象转换为发布者
+    function makePublish(o) {
+        for (let i in publisher) {
+            if (publisher.hasOwnProperty(i) && typeof publisher[i] === 'function') {
+                o[i] = publisher[i];
+            }
+        }
+        o.list = {any: []};
+    }
+
+    let paper = {
+        daily() {
+            this.publish('体育晨报');
+        },
+        evening() {
+            this.publish('北京晚报', 'event');
+        },
+        driveCar() {
+            this.publish('驾驶时速500公里的特斯拉', 'car');
+        }
+    };
+
+    makePublish(paper);
+
+    let joe = {
+        dinner(paper) {
+            console.log('烛光晚餐时看 ', paper);
+        },
+        wakeup(paper) {
+            console.log('早上起来后读 ', paper);
+        },
+        drive(car) {
+            console.log('昨晚做梦开车 ', car);
+        }
+    };
+
+
+    paper.add(joe.dinner, 'event');
+    paper.add(joe.wakeup);
+    paper.add(joe.drive, 'car');
+    paper.remove(joe.wakeup);
+
+    // 调用
+    paper.daily();
+    paper.evening();
+    paper.daily();
+    paper.driveCar();
+
+
+
+    // now将joe转成一个发布者，发微博
+    makePublish(joe);
+
+    joe.weibo = function (msg) {
+        this.publish(msg)
+    };
+
+    paper.readWeibo = function (msg) {
+        console.log('joe发的微博内容是 ', msg);
+    };
+
+    joe.add(paper.readWeibo);
+
+    joe.weibo('红黄蓝虐待儿童')
+</script>
+</body>
+</html>

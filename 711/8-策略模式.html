@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *   策略模式
+    *       常用在表单验证方面
+    *       选择最佳的算法
+    * */
+
+    let data = {
+        first_name: 'Super',
+        last_name: 'Man',
+        age: 'unknown',
+        username: '^o^'
+    };
+
+    // 通过validator对象提供的validate方法去验证
+    // 1.创建validator对象
+    let validator = {
+        // 所有类型
+        types: {},
+
+        // 配置
+        config: {},
+
+        // 错误消息
+        messages: [],
+
+        // 调用方法
+        validate(data) {
+            var i, msg, type, checker, result_ok;
+
+            // 重置所有消息
+            this.messages = [];
+
+            for (i in data) {
+
+                if (data.hasOwnProperty(i)) {
+
+                    type = this.config[i];
+                    checker = this.types[type];
+
+                    if (!type) {
+                        continue;
+                    }
+                    if (!checker) {
+                        throw {
+                            name: 'ValidatorError',
+                            message: '不能处理这类' + type
+                        }
+                    }
+
+                    result_ok = checker.validate(data[i]);
+                    if (!result_ok) {
+                        msg = '无效的' + i + ', ' + checker.instructions;
+                        this.messages.push(msg);
+                    }
+                }
+
+            }
+            return this.hasErrors();
+        },
+        // 帮助方法
+        hasErrors() {
+            return this.messages.length !== 0;
+        }
+    };
+    // 不能为空
+    validator.types.isNonEmpty = {
+        validate(value) {
+            return value !== '';
+        },
+        instructions: '不能为空'
+    };
+    // 必须为数字
+    validator.types.isNumber = {
+        validate(value) {
+            return !isNaN(value);
+        },
+        instructions: '必须为有效数字'
+    };
+    // 字母和数字，无特殊字符
+    validator.types.isAlphaNum = {
+        validate(value) {
+            return !/[^a-z0-9]/i.test(value);
+        },
+        instructions: '字母和数字，无特殊字符'
+    };
+
+
+    // 配置
+    validator.config = {
+        first_name: 'isNonEmpty',
+        age: 'isNumber',
+        username: 'isAlphaNum'
+    };
+
+    // 验证
+    validator.validate(data);
+
+    if (validator.hasErrors()) {
+        console.log(validator.messages.join('\n'));
+    }
+</script>
+</body>
+</html>
