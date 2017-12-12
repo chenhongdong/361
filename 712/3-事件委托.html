@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="box">
+        <ul class="list" id="list">
+            <li>
+                <a href="javascript:;" id="one">
+                    <p>
+                        <span>爱琴海</span>
+                    </p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <p>爱琴海</p>
+                    <div>
+                        <h3>购物中心</h3>
+                    </div>
+                </a>
+
+            </li>
+        </ul>
+    </div>
+    <input type="text" placeholder="爱琴海" id="txt">
+</body>
+</html>
+<script src="jquery-2.0.3.js"></script>
+<script>
+    function $(id) {
+        return document.querySelector(id);
+    }
+
+   /* $('#box').addEventListener('click', function (ev) {
+        ev = ev || event;
+        let target = ev.target || ev.srcElement;
+        let id = target.id;
+        console.log(id);
+
+        console.log(target);
+        let parent = target.parentNode;
+        console.log(parent);
+        while (parent) {
+            parent = parent.parentNode;
+            if (parent.tagName === 'A') {
+                console.log('成功');
+            }
+        }
+    }, false);*/
+
+    console.log($('#txt').getAttribute('placeholder'));
+
+    setTimeout(() => {
+        let li = document.createElement('li');
+        li.innerHTML = '<a href="javascript:;"><p>飞轮海</p></a>';
+        $('#list').appendChild(li);
+    }, 3000);
+
+
+
+
+
+
+    function delegate(agent, type, selector, fn) {
+
+        agent.addEventListener(type, function (e) {
+            let target = e.target;
+            let cTarget = e.currentTarget;
+
+            while (target !== cTarget) {
+                if ([].indexOf.call(cTarget.querySelectorAll(selector), target) !== -1) {
+                    bubble = fn.call(target, e);
+                }
+
+                target = target.parentNode;
+            }
+        }, false);
+
+    }
+
+    delegate($('#box'), 'click', 'a', function (e) {
+        console.log('选中了');
+    });
+</script>

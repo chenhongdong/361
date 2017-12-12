@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  /*var event = new Event('build');
+
+  */
+
+  // 通过detail属性传递值
+  var event = new CustomEvent('build', {detail: {page: 12, next: 13, nodeList: 10, length: 10}});
+
+
+  function eventHandler(e) {
+    console.log(e);
+  }
+
+
+  var body = document.body;
+
+  body.addEventListener('build', eventHandler);
+
+
+  body.dispatchEvent(event);
+</script>
+</body>
+</html>
+
