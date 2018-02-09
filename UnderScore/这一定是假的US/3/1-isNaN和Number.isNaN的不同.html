@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    // Number.isNaN不会强制转换成number类型
+    // 只有参数是数字，并且值为NaN的时候才返回true
+
+    // 实现
+    function isNaN(value) {
+        return Number.isNaN(Number(value));
+    }
+
+    // Number.isNaN是ES6的方法，下面的可以实现polyfill
+    Number.isNaN = Number.isNaN || function (value) {
+        return typeof value === 'number' && isNaN(value);
+    };
+
+
+</script>
+</body>
+</html>

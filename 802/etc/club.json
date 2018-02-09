@@ -1,0 +1,34 @@
+{
+  "club": [
+    {
+      "name": "曼联",
+      "location": "曼彻斯特",
+      "No": 2
+    },
+    {
+      "name": "阿森纳",
+      "location": "伦敦",
+      "No": 6
+    },
+    {
+      "name": "曼城",
+      "location": "曼彻斯特",
+      "No": 1
+    },
+    {
+      "name": "切尔西",
+      "location": "伦敦",
+      "No": 4
+    },
+    {
+      "name": "利物浦",
+      "location": "利物浦",
+      "No": 3
+    },
+    {
+      "name": "托特纳姆热刺",
+      "location": "伦敦",
+      "No": 5
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+	// 箭头函数  消除了this指向问题，永远指向绑定的父级作用域中
+	let count = {
+	    counter: 15,
+		countUp: function() {
+           console.log(this.counter);   // 15
+		}
+	};
+
+	count.countUp();
+</script>
+<script>
+	// 解构赋值
+	let json = {
+		title: 'a title',
+		details: {
+			data: {
+				createData: '2018/02/05',
+				modified: '2018/02/06'
+			}
+		},
+		url: '/www.abc.com/'
+	};
+	let {title, details: {data: {createData, modified}}, url} = json;
+	console.log(title);
+	console.log(createData, modified);
+	console.log(url);
+
+
+	let club = ['Man City', 'Man United', 'Chelsea', 'Liverpool', 'Arsenal'];	// 数组的解构
+	let [city, , che, live] = club;		// 可以跳过某些不需要解构的数组元素
+
+	console.log(city, che, live);
+</script>
+<script>
+	// 实现个isArray吧
+	function isArray(obj) {
+		return Object.prototype.toString.call(obj) === '[object Array]';
+	}
+
+	
+	// 默认参数
+	function getNum(m = 10, n = 30) {
+		return m * n;
+	}
+
+	let num1 = getNum(2 ,5);
+	console.log(num1);		// 10
+	let num2 = getNum();	
+	console.log(num2);		// 300
+
+
+	// 剩余参数
+	function rest(...nums) {
+		console.log(isArray(nums));	// 数组类型
+		// 把多余的参数转换为数组，而且省略书写过多的参数
+		let res = nums.map( item => item * 2);
+
+		return res;
+	}
+
+	let arr = rest(1,2,3,4);
+	console.log(arr);	// [2, 4, 6, 8]
+</script>

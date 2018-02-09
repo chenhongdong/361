@@ -72,7 +72,7 @@
 
             while (target !== cTarget) {
                 if ([].indexOf.call(cTarget.querySelectorAll(selector), target) !== -1) {
-                    bubble = fn.call(target, e);
+                   fn.call(target, e);
                 }
 
                 target = target.parentNode;

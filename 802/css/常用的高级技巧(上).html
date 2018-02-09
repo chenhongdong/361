@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS</title>
+	<style>
+		/*css复位*/
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		/*继承box-sizing*/
+		html {
+			box-sizing: border-box;
+		}
+
+		/*使用:not()*/
+		.nav li {
+			width: 100px;
+			margin-top: 4px;
+		}
+		.nav li:not(:last-child) {	/*不包含最后一个li*/
+			border-right: 1px solid #0cc;
+		}
+		.box {
+			width: 200px;
+			height: 200px;
+			background: #0cc;
+		}
+
+		/*垂直居中任何元素*/
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		body {
+			-webkit-align-items: center;
+			-ms-flex-align: center;
+			align-items: center;
+			display: -webkit-flex;
+			display: flex;
+		}
+
+		/*逗号分隔列表*/
+		.nav li:not(:last-child)::after {
+			content: ',';
+		}
+
+		/*使用负的nth-child，可以选择1到n个元素*/
+		.nav li:nth-child(-n+3) {
+			color: #00a1f5;
+			font-size: 20px;
+		}
+		/*也可用:not来配合实现*/
+		.nav li:not(:nth-child(-n+3)) {
+			color: #000;
+		}
+
+		/*使用svg矢量图*/
+		.logo {
+			backgound: url("logo.svg") no-repeat;
+		}
+
+		/*使用“形似猫头鹰”选择器*/
+		* + * {	/*实现了对所有相邻元素修改样式*/
+			margin-top: 10px;
+		}
+
+		/*使用max-height来建立纯css的滑块*/
+		.slider {
+			width: 300px;
+			max-height: 200px;
+			background: #00a1f5;
+			overflow-y: hidden;
+		}
+		.slider:hover {
+			max-height: 600px;
+			overflow-y: scroll;
+		}
+
+		/*等宽的表格*/
+		.calendar {
+			table-layout: fixed;
+		}
+		.calendar p {
+			width: 50px;
+			height: 50px;
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<ul class="nav">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+	<div class="box">盒子</div>
+	<div class="slider">鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生鲜生</div>
+
+	<div class="calendar">
+		<p>1</p>
+		<p>2</p>
+		<p>3</p>
+		<p>4</p>
+		<p>5</p>
+		<p>6</p>
+		<p>7</p>
+	</div>
+</body>
+</html>

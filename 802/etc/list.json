@@ -1,0 +1,7 @@
+{
+  "list" : [
+    {"name": "Alex", "songs": "Beautiful White"},
+    {"name": "Bob", "songs": "Baby"},
+    {"name": "Chris", "songs": "Merry Christmas"}
+  ]
+}

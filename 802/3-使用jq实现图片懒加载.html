@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		img {
+			position: absolute;
+			top: 3000px;
+			left: 40%;
+		}
+		img + img {
+			top: 3400px;
+		}
+	</style>
+</head>
+<body>
+	<img src="loading.gif" data-src="https://p.ssl.qhimg.com/dmfd/330_185_/t0175c4edb2ac34c866.jpg?size=852x480">
+	<img src="loading.gif" data-src="https://p.ssl.qhimg.com/dmfd/330_185_/t0175c4edb2ac34c866.jpg?size=852x480">
+</body>
+</html>
+<script src="https://s.ssl.qhres.com/lib/jquery/183.js"></script>
+<script src="underscore-1.8.3.js"></script>
+<script>
+$(function() {
+	// 获取window
+	var $win = $(window);
+	// 获取data-src的img，并以jq对象存入数组
+	var lazyImgs = _.map($('img[data-src]').get(), i => $(i));
+
+	console.log(lazyImgs)
+
+	// 定义事件函数
+	var onScroll = function() {
+		var iTop = $win.scrollTop();
+
+		if (lazyImgs.length > 0) {
+			var iHeight = $win.height();
+
+			var last = [];
+
+			_.each(lazyImgs, (item, index) => {
+				if (item.offset().top - iTop < iHeight) {
+					item.attr('src', item.attr('data-src'));
+					last.unshift(item);
+				}
+			});
+
+			_.each(last, index => {
+				lazyImgs.splice(index, 1);
+			});
+		}
+	};
+
+	$win.scroll(onScroll);
+
+	onScroll();
+});
+</script>
