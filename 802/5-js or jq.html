@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box" name="111">111</div>
+<input type="text" id="inp" value="输入框">
+<script>
+    let div = document.getElementById('box');
+    let inp = document.getElementById('inp');
+
+
+    // 1.显示/隐藏
+    // hide()
+    Object.prototype.hide = function () {
+        this.style.display = 'none';
+        return this;
+    };
+    // show()
+    Object.prototype.show = function () {
+        this.style.display = 'block';
+        return this;
+    };
+
+
+    // 2.滑动
+    // slideDown()
+    Object.prototype.slideDown = function () {
+        let self = this;
+        this.style.display = 'block';
+
+        if (this.clientHeight < this.scrollHeight) {
+            this.style.height = 10 + this.clientHeight + 'px';
+
+            setTimeout(function() { self.slideDown() }, 10);
+        } else {
+            this.style.height = this.scrollHeight + 'px';
+        }
+        return this;
+    };
+    // slideUp()
+    Object.prototype.slideUp = function () {
+        let self = this;
+        if (this.clientHeight > 0) {
+            this.style.height = this.clientHeight - 10 + 'px';
+
+            setTimeout(function() { self.slideUp() }, 10);
+        } else {
+            this.style.height = 0;
+            this.style.display = 'none';
+        }
+        return this;
+    };
+
+    // 3.捕获/设置
+    // attr()
+    Object.prototype.attr = function () {
+        let args = arguments;
+        if (args.length === 1) {
+            return args[0];
+        } else if (args.length === 2) {
+            args[0] = args[1];
+            return this;
+        }
+    };
+    // val()
+    Object.prototype.val = function () {
+        let args = arguments;
+        if (args.length === 0) {
+            return this.value;
+        } else if (args.length === 1) {
+            this.value = args[0];
+            return this;
+        }
+    };
+    // html()
+    Object.prototype.html = function () {
+        let args = arguments;
+        if (args.length === 0) {
+            return this.innerHTML;
+        } else if (args.length === 1) {
+            this.innerHTML = args[0];
+            return this;
+        }
+    };
+
+    // 4.css方法
+    // css()
+    Object.prototype.css = function () {
+        let args = arguments;
+        if (args.length === 1) {
+
+        }
+    };
+    setTimeout(function () {
+        // div.slideUp().hide();
+        console.log(div.html('无厘头'));
+    }, 2000);
+</script>
+</body>
+</html>

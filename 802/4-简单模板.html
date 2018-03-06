@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul id="list">
+		<!-- <li><a href="{{ele}}">{{ele}}</a></li> -->
+		<li><a href="/item/1">1</a></li>
+		<li><a href="/item/2">2</a></li>
+		<li><a href="/item/3">3</a></li>
+		<script type="text/x-my-tpl" id="script-tpl">
+			<li><a href="{{elm}}">{{elm}}</a></li>
+		</script>
+	</ul>
+
+	<script>
+		function sprintf(txt) {
+			var i = 1,
+				args = arguments;
+
+			return txt.replace(/\{\{\w+\}\}/g, function() {
+				return (i < args.length) ? args[i++] : '';
+			});
+		}
+
+		// 转换注释节点为模板
+		function addItem(url, txt) {
+			var list = document.getElementById('list');
+			var len = list.childNodes.length;
+			var template, result;
+			
+			for (var i = 0; i < len; i++) {
+				if (list.childNodes[i].nodeType === 8) {
+					template = list.childNodes[i].nodeValue;
+					break;
+				}
+			}
+
+			result = sprintf(template, url, txt);
+
+			list.insertAdjacentHTML('beforeend', result);
+		}
+
+		// 转换script节点为模板
+		function addItem2(url, txt) {
+			var list = document.getElementById('list'),
+				script = document.getElementById('script-tpl'),
+				template = script.text,
+				div = document.createElement('div'),
+				result = sprintf(template, url, txt);
+
+			div.innerHTML = result;
+			list.appendChild(div);
+		}
+
+		addItem('/item/4', '神奇四侠');
+		addItem2('/item/5', '四驱兄弟');
+	</script>
+</body>
+</html>

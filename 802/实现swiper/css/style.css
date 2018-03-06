@@ -1,0 +1,68 @@
+.clearfix:after {
+    clear: both;
+    content: '';
+    display: inline-block;
+}
+
+.bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    transition: opacity .9s linear;
+    opacity:0;
+    filter: alpha(opacity=0);
+}
+#bg1 {
+    background: url(../imgs/1.jpg) no-repeat;
+    background-size: contain;
+}
+#bg2 {
+    background: url(../imgs/2.jpg) no-repeat;
+    background-size: contain;
+}
+#bg3 {
+    background: url(../imgs/3.jpg) no-repeat;
+    background-size: contain;
+}
+#bg4 {
+    background: url(../imgs/4.jpg) no-repeat;
+    background-size: contain;
+}
+#bg5 {
+    background: url(../imgs/5.jpg) no-repeat;
+    background-size: contain;
+}
+.fadeIn {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+.pagination {
+    width: auto;
+    display: table;
+    margin: 0 auto
+}
+.pagination-panel {
+    width: 100%;
+    position: fixed;
+    top: 200px;
+    z-index: 100;
+    height: auto
+}
+.pagination li {
+    border-radius: 15px;
+    height: 15px;
+    width: 15px;
+    background: #fff;
+    float: left;
+    margin-right: 10px;
+    list-style-type: none
+}
+
+.pagination li.active {
+    background: #52c6d8
+}
+.pagination li:last-child {
+    margin-right: 0
+}
