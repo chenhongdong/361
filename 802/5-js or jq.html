@@ -91,13 +91,40 @@
     Object.prototype.css = function () {
         let args = arguments;
         if (args.length === 1) {
-
+            return this.style[args[0]];
+        } else if (args.length === 2) {
+            this.style[args[0]] = args[1];
+            return this;
         }
     };
+    // 5.设置css  // h5方法，ie9以下
+    Object.prototype.hasClass = function (name) {
+        return this.classList.contains(name);
+    };
+    Object.prototype.addClass = function (name) {
+        if (!this.hasClass(name)) {
+            this.classList.add(name);
+        }
+        return this;
+    };
+    Object.prototype.removeClass = function (name) {
+        if (this.hasClass(name)) {
+            this.classList.remove(name);
+        }
+        return this;
+    };
+
+
+
+
     setTimeout(function () {
         // div.slideUp().hide();
         console.log(div.html('无厘头'));
+        div.css('color')
     }, 2000);
+
+
+
 </script>
 </body>
 </html>
