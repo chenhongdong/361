@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- <script src="../underscore-1.8.3.js"></script> -->
+</head>
+<body>
+
+</body>
+</html>
+<script src="集合/US_collection.js"></script>
+<script>
+    // _.each([1,2,3], alert);
+    _.each({one:1, two: 2}, console.log);
+
+    let arr = [1,2];
+    let [a,b] = arr;
+    [b, a] = [a, b];
+    alert(a);   // 2
+    alert(b);   // 1
+
+    // 解构交换赋值
+    // let nba = ['yaoming', 'kebo', 'james', 'paul'];
+    // let [china, ...usa] = nba;
+    // let [,,,idol] = nba;
+    // [china, idol] = [idol, china];
+    // console.log(china, idol);
+
+</script>
