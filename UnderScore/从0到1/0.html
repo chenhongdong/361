@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">1</div>
+</body>
+
+</html>
+<script src="0.js"></script>
+<script>
+    var _ = function (obj) {
+        if (obj instanceof _) return obj;
+        if (!(this instanceof _)) return new _(obj);
+        this._wrapped = obj;
+    };
+
+    _.isElement = function (obj) {
+        return !!(obj && obj.nodeType === 1);
+    }
+    let box = document.getElementById('box');
+    console.log(_.isElement(box));
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>each</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="集合/1.each.js"></script>
+<script>
+    // _.each([1,2,3], alert);
+
+    _.each({
+        from: "weibo",
+        title: " 回首12年,直接受益人口超过60000人!走过12年,我们感恩这一切!感恩玉米们的暖心支持!今天,让我们一起祝生日快乐~有爱就有希望,有希望就不要放弃(庆生视频内含彩蛋哦)",
+        uid: "e85c35f4effacffe0ad5e41931a0ad47",
+        timestamp: "1521445020",
+        we_media_site_zh: '今日头条',
+        site: "www.toutiao.com",
+        we_media_img: "http://p1.pstatp.com/large/3678/7415075639"
+    }, function(...args) {
+        console.log(args);
+    })
+
+    _.each({
+        site: 'so.com',
+        from: 'weibo',
+        url: 'xxx.com/',
+    }, console.log);
+
+
+    let json = {
+        data: [
+            {site: 'so.com'},
+            {site: 'baidu.com'}
+        ],
+        hasOwnProperty: function() {
+            return false;
+        }
+    };
+
+    let res = json.hasOwnProperty();
+    console.log(res);       // 错误，返回false，被修改了
+
+    console.log(hasOwnProperty.call(json, 'hasOwnProperty'));   // 正确，返回true
+</script>

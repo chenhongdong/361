@@ -2537,7 +2537,7 @@
     // on itself (in other words, not on a prototype).
     // 判断对象中是否有指定 key
     // own properties, not on a prototype
-    _.has = function(obj, key) {
+    _.  has = function(obj, key) {
         // obj 不能为 null 或者 undefined
         return obj != null && hasOwnProperty.call(obj, key);
     };

@@ -32,12 +32,40 @@
         }
     };
 
+    //
+    var cb = function(value, context) {
+        // 如果value为null的话，直接返回value值的函数
+        if (value === null) return _.identify;
+        // 如果value是函数的话，直接返回value函数
+        if (_.isFunction(value)) return optimizeCb(value, context);
+        // 如果value是对象的话，返回value对象中是否有某些键值对
+        if (_.isObject(value)) return _.matcher(value);
+        // 返回属性
+        return _.property(value);
+    };
+    
     // 闭包
     var property = function (key) {
         return function (obj) {
             return obj === null ? void 0 : obj[key];
         }
     };
+
+    // cb中调用
+    // 返回传入的值
+    _.identify = function(value) {
+        return value;
+    };
+
+    // cb中调用
+    // 判断是否为函数
+    _.isFunction = function(value) {
+        return typeof value === 'function' || false;
+    };
+
+    // 获得属性
+    _.property = property;
+    
 
     // js数字精确到的最大值
     var MAX_ARRAY_LENGTH = Math.pow(2, 53) - 1;
@@ -78,7 +106,7 @@
         var keys = [];
 
         for (var i in obj) {
-            if (_.has(obj, i)) keys.push(obj[i]);
+            if (_.has(obj, i)) keys.push(i);
         }
         
         return keys;
@@ -109,6 +137,21 @@
         }
         // 供链式调用
         return obj;
+    };
+
+
+    // 2.map
+    _.map = _.collect = function(obj, iteratee, context) {
+        iteratee = cb(iteratee, context);
+        var keys = !isArrayLike(obj) && _.keys(obj),
+            length = (keys || obj).length,
+            results = Array(length);
+        for (var index = 0; index < length; index++) {
+            var currentKey = keys ? keys[index] : index;
+            results[index] = iteratee(obj[currentKey], currentKey, obj);
+        }
+        console.log(results);
+        return results;
     };
 
     window._ = _;
