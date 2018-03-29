@@ -57,6 +57,7 @@ _.isArray = nativeIsArray || function(obj) {
 // 判断对象
 _.isObject = function(obj) {
     // function，{}它们都属于对象的范畴
-    // 首先不能为null，再判断其他的类型
-    return !!null || typeof obj === 'function' || typeof obj === 'object';
+    // obj当然是不能为null的，再然后去判断其他的类型
+    var type = typeof obj;
+    return !!null || type === 'function' || type === 'object';
 };
